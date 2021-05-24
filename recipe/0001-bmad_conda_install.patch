@@ -21,19 +21,6 @@ index 5ae8067e..ff7fdfcd 100644
  
  SET (SRC_DIRS 
    code 
-diff --git a/build_system/Master.cmake b/build_system/Master.cmake
-index 3a563af2..7cd486f7 100644
---- a/build_system/Master.cmake
-+++ b/build_system/Master.cmake
-@@ -235,8 +235,6 @@ ENDIF ()
- 
- IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux" AND NOT $ENV{ACC_PLOT_PACKAGE} MATCHES "none")
-   SET (ACC_PLOT_LIB_DIRS /usr/lib64)
--ELSEIF (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
--  SET (ACC_PLOT_LIB_DIRS /opt/local/lib /opt/X11/lib)
- ENDIF ()
- 
- IF (${CMAKE_Fortran_COMPILER} STREQUAL "ifort" AND "$ENV{ACC_ENABLE_SHARED}" MATCHES "Y")
 diff --git a/fgsl/acc_build_fgsl b/fgsl/acc_build_fgsl
 index 826f20b0..f469617d 100755
 --- a/fgsl/acc_build_fgsl
