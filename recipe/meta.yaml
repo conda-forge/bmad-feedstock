@@ -1,5 +1,5 @@
 {% set name = "bmad" %}
-{% set version = "2021_0521" %}
+{% set version = "2021_0525" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/bmad-sim/bmad_distribution/releases/download/bmad_dist_{{ version }}/bmad_dist_{{ version }}.tgz
-  sha256: 05d6d8512e1675bdecdef693bcd87d9394129ccf8324eae482028e2b9b9ed7f8
+  sha256: 9f9005216b9660ebdb4e4be60c2a07e8d7f14fd9dadd64b068ed5f6248c194fe
   patches:
     - 0001-bmad_conda_install.patch
 
