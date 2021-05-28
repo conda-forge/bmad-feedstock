@@ -21,74 +21,75 @@ index 5ae8067e..ff7fdfcd 100644
  
  SET (SRC_DIRS 
    code 
+diff --git a/build_system/Master.cmake b/build_system/Master.cmake
+index 3a563af2..7cd486f7 100644
+--- a/build_system/Master.cmake
++++ b/build_system/Master.cmake
+@@ -235,8 +235,6 @@ ENDIF ()
+ 
+ IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux" AND NOT $ENV{ACC_PLOT_PACKAGE} MATCHES "none")
+   SET (ACC_PLOT_LIB_DIRS /usr/lib64)
+-ELSEIF (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+-  SET (ACC_PLOT_LIB_DIRS /opt/local/lib /opt/X11/lib)
+ ENDIF ()
+ 
+ IF (${CMAKE_Fortran_COMPILER} STREQUAL "ifort" AND "$ENV{ACC_ENABLE_SHARED}" MATCHES "Y")
 diff --git a/fgsl/acc_build_fgsl b/fgsl/acc_build_fgsl
-index 826f20b0..f469617d 100755
+index dab94a13..a7ec6266 100755
 --- a/fgsl/acc_build_fgsl
 +++ b/fgsl/acc_build_fgsl
-@@ -15,6 +15,12 @@ func_configure_make_install () {
-             BUILD_SHARED=1
+@@ -16,27 +16,38 @@ func_configure_make_install () {
              ;;
      esac
-+    
+ 
 +    case "${ACC_CONDA_BUILD}" in
 +        "Y" | "y" | "1" )
 +            CONDA_BUILD=1
 +            ;;
 +    esac
- 
++
      cd ${WORK_DIR}
  
-@@ -22,18 +28,38 @@ func_configure_make_install () {
+     [ ${BUILD_SHARED} ] && CONFIGURE_FLAGS="--enable-shared" || CONFIGURE_FLAGS="--disable-shared"
  
      if [ ! -e ALREADY_BUILT ] ; then
  
+-	GSL_VERSION=$(cat ${DIST_BASE_DIR}/gsl/VERSION | awk ' { print $3 } ')
+-
 -	if ( [[ "${ACC_PKG}" ]] && [[ "${ACC_PKG}/${BUILD_TYPE}/lib/libgsl*19*" ]] ) ; then
 -	    export GSLLIBDIR=${ACC_PKG}/${BUILD_TYPE}/lib
 -	    export GSLINCDIR=${ACC_PKG}/${BUILD_TYPE}/include
--	    echo -e "Uisng GSL version 2.3 library in ${ACC_PKG}/${BUILD_TYPE}/lib\n"
+-	    echo -e "Uisng GSL version ${GSL_VERSION} library in ${ACC_PKG}/${BUILD_TYPE}/lib\n"
 -	elif [[ "${OUTPUT_DIR}/lib/libgsl*19*" ]] ; then
 -	    export GSLLIBDIR=${OUTPUT_DIR}/lib
 -	    export GSLINCDIR=${OUTPUT_DIR}/include
--	    echo -e "Uisng GSL version 2.3 library in ${OUTPUT_DIR}/lib\n"
--	else
--	    echo -e "Required GSL version 2.3 not found, exiting...\n"
--	    exit 72
--	fi
+-	    echo -e "Uisng GSL version ${GSL_VERSION} library in ${OUTPUT_DIR}/lib\n"
 +	if ( [[ "${CONDA_BUILD}" ]] ) ; then
-+        export GSLLIBDIR=${PREFIX}/lib
-+	    export GSLINCDIR=${PREFIX}/include
-+	    echo -e "Uisng GSL library from conda in ${GSLLIBDIR}\n"
-+    else
-+	    if ( [[ "${ACC_PKG}" ]] && [[ "${ACC_PKG}/${BUILD_TYPE}/lib/libgsl*19*" ]] ) ; then
-+	        export GSLLIBDIR=${ACC_PKG}/${BUILD_TYPE}/lib
-+	        export GSLINCDIR=${ACC_PKG}/${BUILD_TYPE}/include
-+	        echo -e "Uisng GSL version 2.3 library in ${ACC_PKG}/${BUILD_TYPE}/lib\n"
-+	    elif [[ "${OUTPUT_DIR}/lib/libgsl*19*" ]] ; then
-+	        export GSLLIBDIR=${OUTPUT_DIR}/lib
-+	        export GSLINCDIR=${OUTPUT_DIR}/include
-+	        echo -e "Uisng GSL version 2.3 library in ${OUTPUT_DIR}/lib\n"
-+	    else
-+	        echo -e "Required GSL version 2.3 not found, exiting...\n"
-+	        exit 72
-+    	fi
++		export GSLLIBDIR=${PREFIX}/lib
++		export GSLINCDIR=${PREFIX}/include
++		echo -e "Uisng GSL library from conda in ${GSLLIBDIR}\n"
+ 	else
+-	    echo -e "Required GSL version ${GSL_VERSION} not found, exiting...\n"
+-	    exit 72
++		GSL_VERSION=$(cat ${DIST_BASE_DIR}/gsl/VERSION | awk ' { print $3 } ')
 +
 +		if ( [[ "${ACC_PKG}" ]] && [[ "${ACC_PKG}/${BUILD_TYPE}/lib/libgsl*19*" ]] ) ; then
 +		    export GSLLIBDIR=${ACC_PKG}/${BUILD_TYPE}/lib
 +		    export GSLINCDIR=${ACC_PKG}/${BUILD_TYPE}/include
-+		    echo -e "Uisng GSL version 2.3 library in ${ACC_PKG}/${BUILD_TYPE}/lib\n"
++		    echo -e "Uisng GSL version ${GSL_VERSION} library in ${ACC_PKG}/${BUILD_TYPE}/lib\n"
 +		elif [[ "${OUTPUT_DIR}/lib/libgsl*19*" ]] ; then
 +		    export GSLLIBDIR=${OUTPUT_DIR}/lib
 +		    export GSLINCDIR=${OUTPUT_DIR}/include
-+		    echo -e "Uisng GSL version 2.3 library in ${OUTPUT_DIR}/lib\n"
++		    echo -e "Uisng GSL version ${GSL_VERSION} library in ${OUTPUT_DIR}/lib\n"
 +		else
-+		    echo -e "Required GSL version 2.3 not found, exiting...\n"
++		    echo -e "Required GSL version ${GSL_VERSION} not found, exiting...\n"
 +		    exit 72
 +		fi
-+    fi
-+
- 
+ 	fi
+-
  	[ "${ACC_ENABLE_OPENMP}" == "Y" ] && CONFIG_OPTIONS="--enable-openmp"
  
+ 	export gsl_LIBS="-L${GSLLIBDIR} -lgsl -lgslcblas -lm"
 diff --git a/sim_utils/plot/display_size_and_resolution.c b/sim_utils/plot/display_size_and_resolution.c
 index 60a66de8..ccf74981 100644
 --- a/sim_utils/plot/display_size_and_resolution.c

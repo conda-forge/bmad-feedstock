@@ -1,5 +1,5 @@
 {% set name = "bmad" %}
-{% set version = "2021_0525" %}
+{% set version = "2021_0526" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/bmad-sim/bmad_distribution/releases/download/bmad_dist_{{ version }}/bmad_dist_{{ version }}.tgz
-  sha256: 9f9005216b9660ebdb4e4be60c2a07e8d7f14fd9dadd64b068ed5f6248c194fe
+  sha256: cb5d0ba15f12923560b3f454ab96e30ed72caaca76dc4b3f08b1beede0556518
   patches:
     - 0001-bmad_conda_install.patch
 
@@ -26,7 +26,7 @@ requirements:
     - autoconf
     - libtool
     - m4
-    - pkg-config   # [osx]
+    - pkg-config
     - llvm-openmp  # [osx]
     - libgomp      # [linux]
   host:
@@ -44,7 +44,7 @@ requirements:
     - blas
     - lapack
     - lapack95
-    - gsl =2.4
+    - gsl =2.5
     - xraylib
   run:
     - readline
@@ -58,7 +58,7 @@ requirements:
     - fftw
     - lapack
     - lapack95
-    - gsl =2.4
+    - gsl =2.5
     - xraylib
     - xorg-libx11
     - xorg-xproto
