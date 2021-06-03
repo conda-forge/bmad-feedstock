@@ -35,10 +35,10 @@ index 3a563af2..7cd486f7 100644
  
  IF (${CMAKE_Fortran_COMPILER} STREQUAL "ifort" AND "$ENV{ACC_ENABLE_SHARED}" MATCHES "Y")
 diff --git a/fgsl/acc_build_fgsl b/fgsl/acc_build_fgsl
-index dab94a13..a7ec6266 100755
+index 3d4e593b..89b6918a 100755
 --- a/fgsl/acc_build_fgsl
 +++ b/fgsl/acc_build_fgsl
-@@ -16,27 +16,38 @@ func_configure_make_install () {
+@@ -16,31 +16,41 @@ func_configure_make_install () {
              ;;
      esac
  
@@ -53,40 +53,50 @@ index dab94a13..a7ec6266 100755
      [ ${BUILD_SHARED} ] && CONFIGURE_FLAGS="--enable-shared" || CONFIGURE_FLAGS="--disable-shared"
  
      if [ ! -e ALREADY_BUILT ] ; then
- 
--	GSL_VERSION=$(cat ${DIST_BASE_DIR}/gsl/VERSION | awk ' { print $3 } ')
 -
--	if ( [[ "${ACC_PKG}" ]] && [[ "${ACC_PKG}/${BUILD_TYPE}/lib/libgsl*19*" ]] ) ; then
--	    export GSLLIBDIR=${ACC_PKG}/${BUILD_TYPE}/lib
--	    export GSLINCDIR=${ACC_PKG}/${BUILD_TYPE}/include
--	    echo -e "Uisng GSL version ${GSL_VERSION} library in ${ACC_PKG}/${BUILD_TYPE}/lib\n"
--	elif [[ "${OUTPUT_DIR}/lib/libgsl*19*" ]] ; then
+-	if [ ${DIST_BUILD} ] ; then
+-		 GSL_VERSION=$(cat ${DIST_BASE_DIR}/gsl/VERSION | awk ' { print $3 } ')
+-	else
+-		 GSL_VERSION=$(cat ${ACC_BASE}/packages/gsl/VERSION | awk ' { print $3 } ')
+-	fi
+-
+-	if ( [ -d ${ACC_BASE}/packages ] && [[ "${ACC_BASE}/packages/${BUILD_TYPE}/lib/libgsl*" ]] ) ; then
+-	    export GSLLIBDIR=${ACC_BASE}/packages/${BUILD_TYPE}/lib
+-	    export GSLINCDIR=${ACC_BASE}/packages/${BUILD_TYPE}/include
+-	    echo -e "Using GSL version ${GSL_VERSION} library in ${ACC_BASE}/packages/${BUILD_TYPE}/lib\n"
+-	elif [ "${OUTPUT_DIR}/lib/libgsl*" ] ; then
 -	    export GSLLIBDIR=${OUTPUT_DIR}/lib
 -	    export GSLINCDIR=${OUTPUT_DIR}/include
--	    echo -e "Uisng GSL version ${GSL_VERSION} library in ${OUTPUT_DIR}/lib\n"
-+	if ( [[ "${CONDA_BUILD}" ]] ) ; then
-+		export GSLLIBDIR=${PREFIX}/lib
-+		export GSLINCDIR=${PREFIX}/include
-+		echo -e "Uisng GSL library from conda in ${GSLLIBDIR}\n"
- 	else
+-	    echo -e "Using GSL version ${GSL_VERSION} library in ${OUTPUT_DIR}/lib\n"
+-	else
 -	    echo -e "Required GSL version ${GSL_VERSION} not found, exiting...\n"
 -	    exit 72
-+		GSL_VERSION=$(cat ${DIST_BASE_DIR}/gsl/VERSION | awk ' { print $3 } ')
+-	fi
+-
++        if ( [[ "${CONDA_BUILD}" ]] ) ; then
++               export GSLLIBDIR=${PREFIX}/lib
++               export GSLINCDIR=${PREFIX}/include
++               echo -e "Uisng GSL library from conda in ${GSLLIBDIR}\n"
++        else
++		if [ ${DIST_BUILD} ] ; then
++			 GSL_VERSION=$(cat ${DIST_BASE_DIR}/gsl/VERSION | awk ' { print $3 } ')
++		else
++			 GSL_VERSION=$(cat ${ACC_BASE}/packages/gsl/VERSION | awk ' { print $3 } ')
++		fi
 +
-+		if ( [[ "${ACC_PKG}" ]] && [[ "${ACC_PKG}/${BUILD_TYPE}/lib/libgsl*19*" ]] ) ; then
-+		    export GSLLIBDIR=${ACC_PKG}/${BUILD_TYPE}/lib
-+		    export GSLINCDIR=${ACC_PKG}/${BUILD_TYPE}/include
-+		    echo -e "Uisng GSL version ${GSL_VERSION} library in ${ACC_PKG}/${BUILD_TYPE}/lib\n"
-+		elif [[ "${OUTPUT_DIR}/lib/libgsl*19*" ]] ; then
++		if ( [ -d ${ACC_BASE}/packages ] && [[ "${ACC_BASE}/packages/${BUILD_TYPE}/lib/libgsl*" ]] ) ; then
++		    export GSLLIBDIR=${ACC_BASE}/packages/${BUILD_TYPE}/lib
++		    export GSLINCDIR=${ACC_BASE}/packages/${BUILD_TYPE}/include
++		    echo -e "Using GSL version ${GSL_VERSION} library in ${ACC_BASE}/packages/${BUILD_TYPE}/lib\n"
++		elif [ "${OUTPUT_DIR}/lib/libgsl*" ] ; then
 +		    export GSLLIBDIR=${OUTPUT_DIR}/lib
 +		    export GSLINCDIR=${OUTPUT_DIR}/include
-+		    echo -e "Uisng GSL version ${GSL_VERSION} library in ${OUTPUT_DIR}/lib\n"
++		    echo -e "Using GSL version ${GSL_VERSION} library in ${OUTPUT_DIR}/lib\n"
 +		else
 +		    echo -e "Required GSL version ${GSL_VERSION} not found, exiting...\n"
 +		    exit 72
 +		fi
- 	fi
--
++        fi
  	[ "${ACC_ENABLE_OPENMP}" == "Y" ] && CONFIG_OPTIONS="--enable-openmp"
  
  	export gsl_LIBS="-L${GSLLIBDIR} -lgsl -lgslcblas -lm"
@@ -177,10 +187,10 @@ index efadc40b..e7f6a829 100755
  # General Distribution Build Function
  func_dist_build () { 
 diff --git a/util/acc_build_common b/util/acc_build_common
-index 0b4a2b80..14f89b0e 100755
+index ff946efb..1b5a0026 100755
 --- a/util/acc_build_common
 +++ b/util/acc_build_common
-@@ -159,6 +159,9 @@ func_set_fpic_flags () {
+@@ -165,6 +165,9 @@ func_set_fpic_flags () {
  # Function to check for required MacPorts install on Mac OS X
  
  func_check_macports () {
@@ -190,7 +200,7 @@ index 0b4a2b80..14f89b0e 100755
  
      if ( [ `uname` == "Darwin" ] ) ; then
  	if ( [ "$(type gcc &> /dev/null ; echo $?)" -eq 0 ] ) ; then
-@@ -394,6 +397,9 @@ func_check_fortran_version () {
+@@ -400,6 +403,9 @@ func_check_fortran_version () {
  # Function to check minimium version of GNU Utility Programs needed, install which is needed
      
  func_install_utilities () {
@@ -200,7 +210,7 @@ index 0b4a2b80..14f89b0e 100755
  
      UTIL_DIR=${OUTPUT_DIR}/gnu_utilities
      UTIL_SRC_DIR=${BASE_DIR}/gnu_utilities_src
-@@ -699,6 +705,11 @@ func_cleanup_variables () {
+@@ -719,6 +725,11 @@ func_cleanup_variables () {
  
  
  # Main script
