@@ -1,5 +1,5 @@
 {% set name = "bmad" %}
-{% set version = "20210602" %}
+{% set version = "20210603" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/bmad-sim/bmad_distribution/releases/download/{{ version }}/bmad_dist_{{ version[:-4] }}_{{ version[-4:] }}.tgz
-  sha256: 4e4d9179b0662469f5fc3077ab33a085aeb8fc25e7e5e211e40518a9d414373d
+  sha256: db04296545665518d21198cd26cef295b725f9e4c750df6f9f80474e37102964
   patches:
     - 0001-bmad_conda_install.patch
 
@@ -74,7 +74,7 @@ about:
   license: GPL-3.0-or-later
   license_family: GPL
   license_file: bmad/Copyright
-  summary: 'Bmad is an object oriented, open source, subroutine library for relativistic charged-particle dynamics simulations in accelerators and storage rings.'
+  summary: Bmad is an object oriented, open source, subroutine library for relativistic charged-particle dynamics simulations in accelerators and storage rings.
   description: |
     Bmad has been developed at Cornell University's Laboratory for Elementary
     Particle Physics and has been in use since the mid 1990s.
