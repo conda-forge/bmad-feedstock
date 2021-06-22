@@ -22,10 +22,10 @@ index 5ae8067e..ff7fdfcd 100644
  SET (SRC_DIRS 
    code 
 diff --git a/build_system/Master.cmake b/build_system/Master.cmake
-index 3a563af2..7cd486f7 100644
+index 5072fe75..0e413658 100644
 --- a/build_system/Master.cmake
 +++ b/build_system/Master.cmake
-@@ -235,8 +235,6 @@ ENDIF ()
+@@ -238,8 +238,6 @@ ENDIF ()
  
  IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux" AND NOT $ENV{ACC_PLOT_PACKAGE} MATCHES "none")
    SET (ACC_PLOT_LIB_DIRS /usr/lib64)
@@ -121,7 +121,7 @@ index 60a66de8..ccf74981 100644
  #include <stdio.h>
  #include <stdlib.h>
 diff --git a/tao/cmake.tao b/tao/cmake.tao
-index 7c771c1a..a0bce154 100644
+index e78da534..cf1647a2 100644
 --- a/tao/cmake.tao
 +++ b/tao/cmake.tao
 @@ -12,8 +12,11 @@ SET (LINK_LIBS
