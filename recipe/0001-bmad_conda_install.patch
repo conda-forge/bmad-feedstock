@@ -338,7 +338,7 @@ index c1b347e1..9493f246 100644
 +export ACC_USE_MACPORTS="N"
 +
 diff --git a/util/dist_source_me b/util/dist_source_me
-index f771c232..3992f105 100644
+index f771c232..581621f2 100644
 --- a/util/dist_source_me
 +++ b/util/dist_source_me
 @@ -42,6 +42,11 @@ func_set_os_env () {
@@ -412,29 +412,7 @@ index f771c232..3992f105 100644
  if ( [ "${CWD_DIR_CHECK}" == "Y" ] && [[ ! ${CWD} -ef ${DIST_BASE_DIR} ]]) ; then
  
      [ ! -z "${DIST_BASE_DIR}" ] && echo -e "\n-----------------------------------------------------" \
-@@ -416,7 +445,9 @@ if ( [ "${CWD_DIR_CHECK}" == "Y" ] && [[ ! ${CWD} -ef ${DIST_BASE_DIR} ]]) ; the
-     func_set_os_env
-     func_set_bmad_env
-     func_add_bmad_path
--    func_check_fortran_version
-+    if ( [[ ! "${CONDA_BUILD}" ]] ) ; then
-+        func_check_fortran_version
-+    fi
- 
- elif ( [ "${DIST_BASE_DIR_CHECK}" == "Y" ] ) ; then
-     echo -e "\nThe working directory of the Bmad Distribution tree is defined by DIST_BASE_DIR." \
-@@ -425,7 +456,9 @@ elif ( [ "${DIST_BASE_DIR_CHECK}" == "Y" ] ) ; then
-     func_set_os_env
-     func_set_bmad_env
-     func_add_bmad_path
--    func_check_fortran_version
-+    if ( [[ ! "${CONDA_BUILD}" ]] ) ; then
-+        func_check_fortran_version
-+    fi
- 
- else
-     echo -e "\nERROR - Cannot Enable the Bmad Distribution Environment.\n" \
-@@ -454,4 +487,6 @@ echo -e "     https://wiki.classe.cornell.edu/ACC/ACL/OffsiteDoc\n" \
+@@ -454,4 +483,6 @@ echo -e "     https://wiki.classe.cornell.edu/ACC/ACL/OffsiteDoc\n" \
  #-----------------------------------------------------------------
  # Display Logfile, unless requested not to.
  #-----------------------------------------------------------------
