@@ -1,8 +1,8 @@
 diff --git a/bmad/CMakeLists.txt b/bmad/CMakeLists.txt
-index 5ae8067e..ff7fdfcd 100644
+index 5ae8067e..824a49d4 100644
 --- a/bmad/CMakeLists.txt
 +++ b/bmad/CMakeLists.txt
-@@ -7,8 +7,17 @@ SET (CREATE_SHARED true)
+@@ -7,8 +7,16 @@ SET (CREATE_SHARED true)
  
  SET (PLOT_LINK_LIBS $ENV{PLOT_LINK_LIBS})
  
@@ -11,34 +11,33 @@ index 5ae8067e..ff7fdfcd 100644
 +# one level deeper in the include folder
 +IF ($ENV{ACC_CONDA_BUILD})
 +  SET (INC_DIRS
-+    $ENV{PREFIX}/include/xraylib/
++    $ENV{ACC_CONDA_PATH}/include/xraylib/
    )
 +ELSE ()
-+  set (INC_DIRS
-+
++  SET (INC_DIRS
 +  )
 +ENDIF ()
  
  SET (SRC_DIRS 
    code 
 diff --git a/build_system/Master.cmake b/build_system/Master.cmake
-index 5072fe75..0e413658 100644
+index 5072fe75..00331853 100644
 --- a/build_system/Master.cmake
 +++ b/build_system/Master.cmake
-@@ -238,8 +238,6 @@ ENDIF ()
+@@ -238,7 +238,7 @@ ENDIF ()
  
  IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux" AND NOT $ENV{ACC_PLOT_PACKAGE} MATCHES "none")
    SET (ACC_PLOT_LIB_DIRS /usr/lib64)
 -ELSEIF (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
--  SET (ACC_PLOT_LIB_DIRS /opt/local/lib /opt/X11/lib)
++ELSEIF (${CMAKE_SYSTEM_NAME} MATCHES "Darwin" AND "$ENV{ACC_USE_MACPORTS}" MATCHES "Y")
+   SET (ACC_PLOT_LIB_DIRS /opt/local/lib /opt/X11/lib)
  ENDIF ()
  
- IF (${CMAKE_Fortran_COMPILER} STREQUAL "ifort" AND "$ENV{ACC_ENABLE_SHARED}" MATCHES "Y")
 diff --git a/fgsl/acc_build_fgsl b/fgsl/acc_build_fgsl
-index 3d4e593b..89b6918a 100755
+index 3d4e593b..bc8dfa0c 100755
 --- a/fgsl/acc_build_fgsl
 +++ b/fgsl/acc_build_fgsl
-@@ -16,31 +16,41 @@ func_configure_make_install () {
+@@ -16,31 +16,42 @@ func_configure_make_install () {
              ;;
      esac
  
@@ -53,31 +52,15 @@ index 3d4e593b..89b6918a 100755
      [ ${BUILD_SHARED} ] && CONFIGURE_FLAGS="--enable-shared" || CONFIGURE_FLAGS="--disable-shared"
  
      if [ ! -e ALREADY_BUILT ] ; then
--
+ 
 -	if [ ${DIST_BUILD} ] ; then
 -		 GSL_VERSION=$(cat ${DIST_BASE_DIR}/gsl/VERSION | awk ' { print $3 } ')
--	else
++	if ( [[ "${CONDA_BUILD}" ]] ) ; then
++		export GSLLIBDIR=${ACC_CONDA_PATH}/lib
++		export GSLINCDIR=${ACC_CONDA_PATH}/include
++		echo -e "Using GSL library from conda in ${GSLLIBDIR}\n"
+ 	else
 -		 GSL_VERSION=$(cat ${ACC_BASE}/packages/gsl/VERSION | awk ' { print $3 } ')
--	fi
--
--	if ( [ -d ${ACC_BASE}/packages ] && [[ "${ACC_BASE}/packages/${BUILD_TYPE}/lib/libgsl*" ]] ) ; then
--	    export GSLLIBDIR=${ACC_BASE}/packages/${BUILD_TYPE}/lib
--	    export GSLINCDIR=${ACC_BASE}/packages/${BUILD_TYPE}/include
--	    echo -e "Using GSL version ${GSL_VERSION} library in ${ACC_BASE}/packages/${BUILD_TYPE}/lib\n"
--	elif [ "${OUTPUT_DIR}/lib/libgsl*" ] ; then
--	    export GSLLIBDIR=${OUTPUT_DIR}/lib
--	    export GSLINCDIR=${OUTPUT_DIR}/include
--	    echo -e "Using GSL version ${GSL_VERSION} library in ${OUTPUT_DIR}/lib\n"
--	else
--	    echo -e "Required GSL version ${GSL_VERSION} not found, exiting...\n"
--	    exit 72
--	fi
--
-+        if ( [[ "${CONDA_BUILD}" ]] ) ; then
-+               export GSLLIBDIR=${PREFIX}/lib
-+               export GSLINCDIR=${PREFIX}/include
-+               echo -e "Uisng GSL library from conda in ${GSLLIBDIR}\n"
-+        else
 +		if [ ${DIST_BUILD} ] ; then
 +			 GSL_VERSION=$(cat ${DIST_BASE_DIR}/gsl/VERSION | awk ' { print $3 } ')
 +		else
@@ -96,19 +79,33 @@ index 3d4e593b..89b6918a 100755
 +		    echo -e "Required GSL version ${GSL_VERSION} not found, exiting...\n"
 +		    exit 72
 +		fi
-+        fi
+ 	fi
+-
+-	if ( [ -d ${ACC_BASE}/packages ] && [[ "${ACC_BASE}/packages/${BUILD_TYPE}/lib/libgsl*" ]] ) ; then
+-	    export GSLLIBDIR=${ACC_BASE}/packages/${BUILD_TYPE}/lib
+-	    export GSLINCDIR=${ACC_BASE}/packages/${BUILD_TYPE}/include
+-	    echo -e "Using GSL version ${GSL_VERSION} library in ${ACC_BASE}/packages/${BUILD_TYPE}/lib\n"
+-	elif [ "${OUTPUT_DIR}/lib/libgsl*" ] ; then
+-	    export GSLLIBDIR=${OUTPUT_DIR}/lib
+-	    export GSLINCDIR=${OUTPUT_DIR}/include
+-	    echo -e "Using GSL version ${GSL_VERSION} library in ${OUTPUT_DIR}/lib\n"
+-	else
+-	    echo -e "Required GSL version ${GSL_VERSION} not found, exiting...\n"
+-	    exit 72
+-	fi
+-
  	[ "${ACC_ENABLE_OPENMP}" == "Y" ] && CONFIG_OPTIONS="--enable-openmp"
  
  	export gsl_LIBS="-L${GSLLIBDIR} -lgsl -lgslcblas -lm"
 diff --git a/sim_utils/plot/display_size_and_resolution.c b/sim_utils/plot/display_size_and_resolution.c
-index 60a66de8..ccf74981 100644
+index 60a66de8..b3f262c5 100644
 --- a/sim_utils/plot/display_size_and_resolution.c
 +++ b/sim_utils/plot/display_size_and_resolution.c
 @@ -34,6 +34,15 @@ void display_size_and_res(int ix_screen, double* x_size, double* y_size, double*
  #include <X11/Xwindows.h>
  #endif
  
-+// Attempt of a Hack for the OSX issue with conda-forge
++// Fix for OSX X11 issue with conda-forge build
 +#include <X11/Xfuncproto.h>
 +#ifndef _X_SENTINEL
 +# define _X_SENTINEL(x)
@@ -121,43 +118,54 @@ index 60a66de8..ccf74981 100644
  #include <stdio.h>
  #include <stdlib.h>
 diff --git a/tao/cmake.tao b/tao/cmake.tao
-index e78da534..cf1647a2 100644
+index e78da534..775012a4 100644
 --- a/tao/cmake.tao
 +++ b/tao/cmake.tao
-@@ -12,8 +12,11 @@ SET (LINK_LIBS
+@@ -12,10 +12,16 @@ SET (LINK_LIBS
    ${ACC_BMAD_LINK_LIBS}
  )
  
 -IF (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
--  link_directories(/opt/local/lib)
-+# If this is a conda build we must expand the
-+# library search with the PREFIX/lib
-+# folder.
-+IF ($ENV{ACC_CONDA_BUILD})
-+  link_directories($ENV{PREFIX}/lib)
++IF (${CMAKE_SYSTEM_NAME} MATCHES "Darwin" AND $ENV{ACC_USE_MACPORTS} MATCHES "Y")
+   link_directories(/opt/local/lib)
  ENDIF ()
  
++# If this is a conda build we must expand the library search
++# with the lib folder
++IF ($ENV{ACC_CONDA_BUILD})
++  link_directories($ENV{ACC_CONDA_PATH}/lib)
++ENDIF ()
++
  IF ($ENV{ACC_PLOT_PACKAGE} MATCHES "plplot")
+   IF (NOT ${MSYS})
+   SET (SHARED_LINK_LIBS
 diff --git a/tao/customization/cmake.custom_tao b/tao/customization/cmake.custom_tao
-index e98fcb92..297dcd95 100644
+index e98fcb92..0cd50d75 100644
 --- a/tao/customization/cmake.custom_tao
 +++ b/tao/customization/cmake.custom_tao
-@@ -10,10 +10,6 @@ set (LINK_LIBS
+@@ -10,10 +10,16 @@ set (LINK_LIBS
    ${ACC_BMAD_LINK_LIBS}
  )
  
 -IF (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
--  link_directories(/opt/local/lib)
--ENDIF ()
--
++IF (${CMAKE_SYSTEM_NAME} MATCHES "Darwin" AND $ENV{ACC_USE_MACPORTS} MATCHES "Y")
+   link_directories(/opt/local/lib)
+ ENDIF ()
+ 
++# If this is a conda build we must expand the library search
++# with the lib folder
++IF ($ENV{ACC_CONDA_BUILD})
++  link_directories($ENV{ACC_CONDA_PATH}/lib)
++ENDIF ()
++
  IF ($ENV{ACC_PLOT_PACKAGE} MATCHES "plplot")
    set (SHARED_LINK_LIBS
      pangocairo-1.0
 diff --git a/util/Distribution_User_Utility_Wrapper b/util/Distribution_User_Utility_Wrapper
-index efadc40b..e7f6a829 100755
+index efadc40b..de3547d5 100755
 --- a/util/Distribution_User_Utility_Wrapper
 +++ b/util/Distribution_User_Utility_Wrapper
-@@ -11,11 +11,24 @@
+@@ -11,11 +11,26 @@
  [ "${ACC_PLOT_PACKAGE}" == "pgplot" ] && export ACC_PLOT_PACKAGE_DIR="PGPLOT" 
  [ "${ACC_PLOT_PACKAGE}" == "plplot" ] && export ACC_PLOT_PACKAGE_DIR="plplot"
  
@@ -170,82 +178,125 @@ index efadc40b..e7f6a829 100755
 +esac
 +
 +if ( [[ "${CONDA_BUILD}" ]] ) ; then
++    # For conda build most of the dependencies are pulled from conda-forge
++    # We also remove examples and regression tests from the build list
++
++    # List of Project Directories - Order here matters!
 +    DIRLIST=( fgsl forest recipes_f-90_LEPP sim_utils bmad tao cpp_bmad_interface bsim util_programs lux )
-+    # plplot is not available via conda so we use the source with bmad and build it
 +    [ "${ACC_PLOT_PACKAGE}" == "plplot" ] && DIRLIST=( plplot ${DIRLIST[*]} )
 +else
-+	# List of Project Directories - Order here matters!
-+	DIRLIST=( ${ACC_PLOT_PACKAGE_DIR} hdf5 fftw lapack gsl fgsl forest recipes_f-90_LEPP sim_utils xraylib bmad tao cpp_bmad_interface examples bsim util_programs lux regression_tests )
-+
++    # List of Project Directories - Order here matters!
++    DIRLIST=( ${ACC_PLOT_PACKAGE_DIR} hdf5 fftw lapack gsl fgsl forest recipes_f-90_LEPP sim_utils xraylib bmad tao cpp_bmad_interface examples bsim util_programs lux regression_tests )
+ 
+-# Build OpenMPI, if requested
+-[ "${ACC_ENABLE_MPI}" == "Y" ] && DIRLIST=( openmpi ${DIRLIST[*]} )
 +    # Build OpenMPI, if requested
 +    [ "${ACC_ENABLE_MPI}" == "Y" ] && DIRLIST=( openmpi ${DIRLIST[*]} )
 +fi
  
--# Build OpenMPI, if requested
--[ "${ACC_ENABLE_MPI}" == "Y" ] && DIRLIST=( openmpi ${DIRLIST[*]} )
- 
  # General Distribution Build Function
  func_dist_build () { 
 diff --git a/util/acc_build_common b/util/acc_build_common
-index ff946efb..1b5a0026 100755
+index ff946efb..43683c72 100755
 --- a/util/acc_build_common
 +++ b/util/acc_build_common
-@@ -165,6 +165,9 @@ func_set_fpic_flags () {
+@@ -133,10 +133,15 @@ func_set_openmp_flags () {
+ 
+     case "${ACC_ENABLE_OPENMP}" in
+ 	"Y" | "y" | "1" )
++	    if ( [[ "${CONDA_BUILD}" ]] ) ; then
++                export CFLAGS="${CFLAGS} -L${ACC_CONDA_PATH}/lib -I${ACC_CONDA_PATH}/include"
++                export FCFLAGS="${FFLAGS} -L${ACC_CONDA_PATH}/lib -I${ACC_CONDA_PATH}/include"
++                export LDFLAGS="-L${ACC_CONDA_PATH}/lib -Wl,-rpath,${ACC_CONDA_PATH}/lib ${LDFLAGS}"
++	    fi
+ 	    export CFLAGS="-fopenmp ${CFLAGS}"
+ 	    if ( [ "${FC}" == "gfortran" ] ) ; then
+-		export FCFLAGS="-fopenmp"
+-		export LDFLAGS="-lgomp"
++		export FCFLAGS="-fopenmp ${FCFLAGS}"
++		export LDFLAGS="-lgomp ${LDFLAGS}"
+ 	    elif [ "${IFORT_MAJOR_VERSION}" ] ; then
+ 		if [ "${IFORT_MAJOR_VERSION}" -gt 15 ] ; then
+ 		    export FCFLAGS="-qopenmp" 
+@@ -165,6 +170,15 @@ func_set_fpic_flags () {
  # Function to check for required MacPorts install on Mac OS X
  
  func_check_macports () {
++    # We don't need MacPorts for CONDA builds
 +    if ( [[ "${CONDA_BUILD}" ]] ) ; then
-+	    return
++           return
++    fi
++
++    # We don't need MacPorts if not using it
++    if ( [[ ! "${USE_MACPORTS}" ]] ) ; then
++           return
 +    fi
  
      if ( [ `uname` == "Darwin" ] ) ; then
  	if ( [ "$(type gcc &> /dev/null ; echo $?)" -eq 0 ] ) ; then
-@@ -400,6 +403,9 @@ func_check_fortran_version () {
+@@ -400,6 +414,10 @@ func_check_fortran_version () {
  # Function to check minimium version of GNU Utility Programs needed, install which is needed
      
  func_install_utilities () {
++    # We don't need to install utilities for CONDA builds
 +    if ( [[ "${CONDA_BUILD}" ]] ) ; then
-+	    return
++           return
 +    fi
  
      UTIL_DIR=${OUTPUT_DIR}/gnu_utilities
      UTIL_SRC_DIR=${BASE_DIR}/gnu_utilities_src
-@@ -719,6 +725,11 @@ func_cleanup_variables () {
- 
+@@ -610,7 +628,7 @@ func_set_c_flags () {
+ 	export LDFLAGS="${LDFLAGS}"
+     elif ( [ `uname` == "Darwin" ] ) ; then
+ 	export CFLAGS="-std=gnu99 -Wall -fPIC -Wno-trigraphs -Wno-unused -g ${CFLAGS}"
+-	export LDFLAGS="-v"
++	export LDFLAGS="-v ${LDFLAGS}"
+     else
+ 	export CFLAGS="-std=gnu99 -Wall -Wno-trigraphs -Wno-unused -g ${CFLAGS}"
+ 	export LDFLAGS="${LDFLAGS}"
+@@ -720,6 +738,17 @@ func_cleanup_variables () {
  
  # Main script
+ 
 +case "${ACC_CONDA_BUILD}" in
 +    "Y" | "y" | "1" )
 +        CONDA_BUILD=1
 +        ;;
 +esac
- 
++case "${ACC_USE_MACPORTS}" in
++    "Y" | "y" | "1" )
++        USE_MACPORTS=1
++        ;;
++esac
++
  if ( [ "${1}" == "-debug" ] || [ "${1}" == "-production" ] ) ; then
  
+     export BUILD_TYPE=$(echo ${1} | cut -d- -f2)
 diff --git a/util/build_flags_config b/util/build_flags_config
-index 1be42172..001fa460 100644
+index 1be42172..e9e403e1 100644
 --- a/util/build_flags_config
 +++ b/util/build_flags_config
-@@ -16,6 +16,8 @@ fi
+@@ -15,7 +15,8 @@ fi
+ # Set base Bmad Library Linker Flags as updated by dcs16 in RT#56661
  export ACC_BMAD_LINK_LIBS="xrlf03;xrl;recipes_f-90_LEPP;forest;fgsl;gsl;gslcblas;lapack95;lapack;blas;hdf5hl_fortran;hdf5_hl;hdf5_fortran;hdf5;fftw3;fftw3_omp"
  
- # Set base Linker Flags for C++ stdc++, as per RT#58127  
+-# Set base Linker Flags for C++ stdc++, as per RT#58127  
 -export STDCXX_LINK_LIBS="stdc++"
 -export STDCXX_LINK_FLAGS="-lstdc++"
-+if [ "${ACC_CONDA_BUILD}" == "N" ] ; then
+-
++if [ "${ACC_CONDA_BUILD}" != "Y" ] ; then
++    # Set base Linker Flags for C++ stdc++, as per RT#58127
 +    export STDCXX_LINK_LIBS="stdc++"
 +    export STDCXX_LINK_FLAGS="-lstdc++"
 +fi
- 
 diff --git a/util/dist_prefs b/util/dist_prefs
-index c1b347e1..86503ada 100644
+index c1b347e1..9493f246 100644
 --- a/util/dist_prefs
 +++ b/util/dist_prefs
-@@ -166,3 +166,15 @@ export ACC_SET_GMAKE_JOBS="2"
+@@ -166,3 +166,43 @@ export ACC_SET_GMAKE_JOBS="2"
  # Setting PYTHONPATH is typically used for the interfacing of the Tao program to Python.
  #-----------------------------------------------------------
  # export ACC_PYTHONPATH=""
-+
 +
 +#-----------------------------------------------------------
 +# By default the conda build flag is off.
@@ -257,134 +308,107 @@ index c1b347e1..86503ada 100644
 +#-----------------------------------------------------------
 +export ACC_CONDA_BUILD="N"
 +
++#-----------------------------------------------------------
++# If using ACC_CONDA_BUILD configure here the path to your
++# environment.
++#-----------------------------------------------------------
++export ACC_CONDA_PATH="${CONDA_PREFIX}"
++
++#-----------------------------------------------------------
++# By default this flag is on.
++# Setting the variable ACC_USE_MACPORTS here to "Y" will
++# enable the MacPorts path (/opt/local/) to be added to
++# library search path.
++# This option is only valid for MacOS (Darwin).
++#-----------------------------------------------------------
++export ACC_USE_MACPORTS="Y"
++
++export DIST_F90_REQUEST="gfortran"
++export ACC_PLOT_PACKAGE="pgplot"
++export ACC_PLOT_DISPLAY_TYPE="X"
++export ACC_ENABLE_OPENMP="Y"
++export ACC_ENABLE_MPI="Y"
++export ACC_FORCE_BUILTIN_MPI="Y"
++export ACC_ENABLE_GFORTRAN_OPTIMIZATION="Y"
++export ACC_ENABLE_SHARED="Y"
++export ACC_ENABLE_FPIC="Y"
++export ACC_ENABLE_PROFILING="N"
++export ACC_SET_GMAKE_JOBS="6"
++export ACC_CONDA_BUILD="Y"
++export ACC_USE_MACPORTS="N"
++
 diff --git a/util/dist_source_me b/util/dist_source_me
-index f771c232..782d57c9 100644
+index f771c232..a1973190 100644
 --- a/util/dist_source_me
 +++ b/util/dist_source_me
-@@ -42,6 +42,18 @@ func_set_os_env () {
+@@ -42,6 +42,11 @@ func_set_os_env () {
  
      export ACC_COMPILER_TOOLSET=default
  
-+
-+    case "${ACC_CONDA_BUILD}" in
-+        "Y" | "y" | "1" )
-+            CONDA_BUILD=1 
-+            ;;
-+    esac
-+
 +    if ( [[ "${CONDA_BUILD}" ]] ) ; then
-+	    return;
++        # No need to set os env for Conda Build.
++        return;
 +    fi
-+
 +
      if ( [ $(uname -o &> /dev/null ; echo $?) -eq 0 ] ) ; then
  
          # Workaround for $(uname -m) == x86_64 on Msys2/MinGW-w64-i686
-@@ -342,37 +354,46 @@ func_add_bmad_path () {
+@@ -72,9 +77,11 @@ func_set_os_env () {
+     # For Mac OS X "Darwin"
+     if [ "$(uname)" == "Darwin" ] ; then
+ 	# Force MacPorts gcc/g++ as GNU compiler
+-	if [ -e /opt/local/bin/gcc ] ; then
+-	    export CC=gcc
+-	    export CXX=g++
++	if ( [[ "${USE_MACPORTS}" ]] ) ; then
++		if [ -e /opt/local/bin/gcc ] ; then
++		    export CC=gcc
++		    export CXX=g++
++		fi
+ 	fi
+     fi
+ }
+@@ -341,6 +348,11 @@ func_add_bmad_path () {
+ 
      export PATH=${USER_PATH}
  
-     if [ ${LD_LIBRARY_PATH} ] ; then
--	USER_LIB_PATH_LIST=$(echo ${LD_LIBRARY_PATH} | sed s/:/\ /g)
-+		USER_LIB_PATH_LIST=$(echo ${LD_LIBRARY_PATH} | sed s/:/\ /g)
- 
--	BMAD_LIBS=( ${BMAD_LIB_DEBUG_PATH} ${BMAD_LIB_PROD_PATH} )
-+		BMAD_LIBS=( ${BMAD_LIB_DEBUG_PATH} ${BMAD_LIB_PROD_PATH} )
- 
--	for BMAD_LIB in ${BMAD_LIBS[@]}
--	do
--	    for LIB_PATH in ${USER_LIB_PATH_LIST}
--	    do
--		if ( [ "${LIB_PATH}" == "${BMAD_LIB}" ] ) ; then 
--		    PATH_FOUND=1
--		fi
--	    done
-+		for BMAD_LIB in ${BMAD_LIBS[@]}
-+		do
-+		    for LIB_PATH in ${USER_LIB_PATH_LIST}
-+		    do
-+				if ( [ "${LIB_PATH}" == "${BMAD_LIB}" ] ) ; then 
-+				    PATH_FOUND=1
-+				fi
-+		    done
- 
--	    if [ "${PATH_FOUND}" -eq 0 ] ; then
--		export LD_LIBRARY_PATH=${BMAD_LIB}:${LD_LIBRARY_PATH}
--	    fi
--	done
-+		    if [ "${PATH_FOUND}" -eq 0 ] ; then
-+			export LD_LIBRARY_PATH=${BMAD_LIB}:${LD_LIBRARY_PATH}
-+		    fi
-+		done
- 
--    else
--	export LD_LIBRARY_PATH=${BMAD_LIB_PROD_PATH}:${BMAD_LIB_DEBUG_PATH}
-+	    else
-+			export LD_LIBRARY_PATH=${BMAD_LIB_PROD_PATH}:${BMAD_LIB_DEBUG_PATH}
- 
--        # Configure DYLD_LIBRARY_PATH for Mac OS X
--	if [ "${DIST_OS}" == "Darwin" ] ; then
-+	    case "${ACC_CONDA_BUILD}" in
-+	        "Y" | "y" | "1" )
-+	            CONDA_BUILD=1 
-+	            ;;
-+	    esac
- 
--	    if ( [ "${DIST_F90_REQUEST}" == "ifort" ] && [ -d /opt/intel/lib ] ) ; then
--		export DYLD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/opt/intel/lib
-+		if ( [[ "${CONDA_BUILD}" ]] ) ; then
-+		    return;
-+                fi
- 
--	    elif [ -d /opt/local/lib ] ; then
--	     	export DYLD_LIBRARY_PATH=${LD_LIBRARY_PATH}
--	    fi
--	fi
-+	        # Configure DYLD_LIBRARY_PATH for Mac OS X
-+		if [ "${DIST_OS}" == "Darwin" ] ; then
++    if ( [[ "${CONDA_BUILD}" ]] ) ; then
++        export LD_LIBRARY_PATH=${ACC_CONDA_PATH}/lib:${LD_LIBRARY_PATH}
++    fi
 +
-+		    if ( [ "${DIST_F90_REQUEST}" == "ifort" ] && [ -d /opt/intel/lib ] ) ; then
-+				export DYLD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/opt/intel/lib
-+		    elif [ -d /opt/local/lib ] ; then
-+		     	export DYLD_LIBRARY_PATH=${LD_LIBRARY_PATH}
-+		    fi
-+		fi
++
+     if [ ${LD_LIBRARY_PATH} ] ; then
+ 	USER_LIB_PATH_LIST=$(echo ${LD_LIBRARY_PATH} | sed s/:/\ /g)
+ 
+@@ -376,7 +388,17 @@ func_add_bmad_path () {
      fi
  }
  
-@@ -398,7 +419,7 @@ func_add_bmad_path () {
- # Set universal ACC_ROOT_DIR variable. Defined for both 
- # Release and Distribution Builds.
++case "${ACC_CONDA_BUILD}" in
++    "Y" | "y" | "1" )
++        CONDA_BUILD=1
++        ;;
++esac
+ 
++case "${ACC_USE_MACPORTS}" in
++    "Y" | "y" | "1" )
++        USE_MACPORTS=1
++        ;;
++esac
+ 
  #-----------------------------------------------------------------
--DIST_SETUP_LOG=${HOME}/.Bmad_Dist_Setup_Log.tmp
-+DIST_SETUP_LOG=/dev/stdout
- CWD=$(pwd)
+ # Main Script
+@@ -403,6 +425,13 @@ CWD=$(pwd)
  CWD_DIR_CHECK=$(func_is_dir_toplevel ${CWD})
  DIST_BASE_DIR_CHECK=$(func_is_dir_toplevel ${DIST_BASE_DIR})
-@@ -413,17 +434,18 @@ if ( [ "${CWD_DIR_CHECK}" == "Y" ] && [[ ! ${CWD} -ef ${DIST_BASE_DIR} ]]) ; the
-     echo -e "\nCurrent working directory is the root of a Bmad Distribution tree." \
- 	> ${DIST_SETUP_LOG}
  
--    func_set_os_env
-     func_set_bmad_env
-+    func_set_os_env
-     func_add_bmad_path
--    func_check_fortran_version
-+    # func_check_fortran_version
 +
++if ( [[ "${CONDA_BUILD}" ]] ) ; then
++    DIST_SETUP_LOG=/dev/stdout
++    DIST_SETUP_QUIET="Y"
++fi
++
++
+ if ( [ "${CWD_DIR_CHECK}" == "Y" ] && [[ ! ${CWD} -ef ${DIST_BASE_DIR} ]]) ; then
  
- elif ( [ "${DIST_BASE_DIR_CHECK}" == "Y" ] ) ; then
-     echo -e "\nThe working directory of the Bmad Distribution tree is defined by DIST_BASE_DIR." \
- 	> ${DIST_SETUP_LOG}
- 
--    func_set_os_env
-     func_set_bmad_env
-+    func_set_os_env
-     func_add_bmad_path
-     func_check_fortran_version
- 
-@@ -454,4 +476,4 @@ echo -e "     https://wiki.classe.cornell.edu/ACC/ACL/OffsiteDoc\n" \
- #-----------------------------------------------------------------
- # Display Logfile, unless requested not to.
- #-----------------------------------------------------------------
--[ "${DIST_SETUP_QUIET}" != "Y" ] && cat ${DIST_SETUP_LOG}
-+# [ "${DIST_SETUP_QUIET}" != "Y" ] && cat ${DIST_SETUP_LOG}
+     [ ! -z "${DIST_BASE_DIR}" ] && echo -e "\n-----------------------------------------------------" \

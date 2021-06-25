@@ -15,6 +15,8 @@ export ACC_ENABLE_FPIC="Y"
 export ACC_ENABLE_PROFILING="N"
 export ACC_SET_GMAKE_JOBS="2"
 export ACC_CONDA_BUILD="Y"
+export ACC_CONDA_PATH="$PREFIX"
+export ACC_USE_MACPORTS="N"
 EOF
 
 echo "**** Invoking dist_source_me"
