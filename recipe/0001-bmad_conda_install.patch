@@ -338,7 +338,7 @@ index c1b347e1..9493f246 100644
 +export ACC_USE_MACPORTS="N"
 +
 diff --git a/util/dist_source_me b/util/dist_source_me
-index f771c232..d9883b0c 100644
+index f771c232..3992f105 100644
 --- a/util/dist_source_me
 +++ b/util/dist_source_me
 @@ -42,6 +42,11 @@ func_set_os_env () {
@@ -434,3 +434,11 @@ index f771c232..d9883b0c 100644
  
  else
      echo -e "\nERROR - Cannot Enable the Bmad Distribution Environment.\n" \
+@@ -454,4 +487,6 @@ echo -e "     https://wiki.classe.cornell.edu/ACC/ACL/OffsiteDoc\n" \
+ #-----------------------------------------------------------------
+ # Display Logfile, unless requested not to.
+ #-----------------------------------------------------------------
+-[ "${DIST_SETUP_QUIET}" != "Y" ] && cat ${DIST_SETUP_LOG}
++if ( [[ ! "${CONDA_BUILD}" ]] ) ; then
++    [ "${DIST_SETUP_QUIET}" != "Y" ] && cat ${DIST_SETUP_LOG}
++fi
