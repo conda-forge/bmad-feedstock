@@ -21,10 +21,10 @@ index 5ae8067e..824a49d4 100644
  SET (SRC_DIRS 
    code 
 diff --git a/build_system/Master.cmake b/build_system/Master.cmake
-index 5072fe75..00331853 100644
+index bad48575..10572b87 100644
 --- a/build_system/Master.cmake
 +++ b/build_system/Master.cmake
-@@ -238,7 +238,7 @@ ENDIF ()
+@@ -241,7 +241,7 @@ ENDIF ()
  
  IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux" AND NOT $ENV{ACC_PLOT_PACKAGE} MATCHES "none")
    SET (ACC_PLOT_LIB_DIRS /usr/lib64)
@@ -140,10 +140,10 @@ index e78da534..775012a4 100644
    IF (NOT ${MSYS})
    SET (SHARED_LINK_LIBS
 diff --git a/tao/customization/cmake.custom_tao b/tao/customization/cmake.custom_tao
-index e98fcb92..0cd50d75 100644
+index da83fe0d..8ad4217e 100644
 --- a/tao/customization/cmake.custom_tao
 +++ b/tao/customization/cmake.custom_tao
-@@ -10,10 +10,16 @@ set (LINK_LIBS
+@@ -12,10 +12,16 @@ SET (LINK_LIBS
    ${ACC_BMAD_LINK_LIBS}
  )
  
@@ -159,8 +159,8 @@ index e98fcb92..0cd50d75 100644
 +ENDIF ()
 +
  IF ($ENV{ACC_PLOT_PACKAGE} MATCHES "plplot")
-   set (SHARED_LINK_LIBS
-     pangocairo-1.0
+   IF (NOT ${MSYS})
+   SET (SHARED_LINK_LIBS
 diff --git a/util/Distribution_User_Utility_Wrapper b/util/Distribution_User_Utility_Wrapper
 index efadc40b..de3547d5 100755
 --- a/util/Distribution_User_Utility_Wrapper
@@ -197,10 +197,10 @@ index efadc40b..de3547d5 100755
  # General Distribution Build Function
  func_dist_build () { 
 diff --git a/util/acc_build_common b/util/acc_build_common
-index ff946efb..43683c72 100755
+index 8579eee2..05750bff 100755
 --- a/util/acc_build_common
 +++ b/util/acc_build_common
-@@ -133,10 +133,15 @@ func_set_openmp_flags () {
+@@ -130,10 +130,15 @@ func_set_openmp_flags () {
  
      case "${ACC_ENABLE_OPENMP}" in
  	"Y" | "y" | "1" )
@@ -218,7 +218,7 @@ index ff946efb..43683c72 100755
  	    elif [ "${IFORT_MAJOR_VERSION}" ] ; then
  		if [ "${IFORT_MAJOR_VERSION}" -gt 15 ] ; then
  		    export FCFLAGS="-qopenmp" 
-@@ -165,6 +170,15 @@ func_set_fpic_flags () {
+@@ -162,6 +167,15 @@ func_set_fpic_flags () {
  # Function to check for required MacPorts install on Mac OS X
  
  func_check_macports () {
@@ -234,7 +234,7 @@ index ff946efb..43683c72 100755
  
      if ( [ `uname` == "Darwin" ] ) ; then
  	if ( [ "$(type gcc &> /dev/null ; echo $?)" -eq 0 ] ) ; then
-@@ -400,6 +414,10 @@ func_check_fortran_version () {
+@@ -397,6 +411,10 @@ func_check_fortran_version () {
  # Function to check minimium version of GNU Utility Programs needed, install which is needed
      
  func_install_utilities () {
@@ -245,7 +245,7 @@ index ff946efb..43683c72 100755
  
      UTIL_DIR=${OUTPUT_DIR}/gnu_utilities
      UTIL_SRC_DIR=${BASE_DIR}/gnu_utilities_src
-@@ -610,7 +628,7 @@ func_set_c_flags () {
+@@ -607,7 +625,7 @@ func_set_c_flags () {
  	export LDFLAGS="${LDFLAGS}"
      elif ( [ `uname` == "Darwin" ] ) ; then
  	export CFLAGS="-std=gnu99 -Wall -fPIC -Wno-trigraphs -Wno-unused -g ${CFLAGS}"
@@ -254,7 +254,7 @@ index ff946efb..43683c72 100755
      else
  	export CFLAGS="-std=gnu99 -Wall -Wno-trigraphs -Wno-unused -g ${CFLAGS}"
  	export LDFLAGS="${LDFLAGS}"
-@@ -720,6 +738,17 @@ func_cleanup_variables () {
+@@ -715,6 +733,17 @@ func_cleanup_variables () {
  
  # Main script
  
@@ -290,13 +290,13 @@ index 1be42172..e9e403e1 100644
 +    export STDCXX_LINK_FLAGS="-lstdc++"
 +fi
 diff --git a/util/dist_prefs b/util/dist_prefs
-index c1b347e1..9493f246 100644
+index 948f68f7..619a6ca2 100644
 --- a/util/dist_prefs
 +++ b/util/dist_prefs
-@@ -166,3 +166,43 @@ export ACC_SET_GMAKE_JOBS="2"
- # Setting PYTHONPATH is typically used for the interfacing of the Tao program to Python.
+@@ -158,3 +158,31 @@ export ACC_ENABLE_PROFILING="N"
  #-----------------------------------------------------------
- # export ACC_PYTHONPATH=""
+ export ACC_SET_GMAKE_JOBS="2"
+ 
 +
 +#-----------------------------------------------------------
 +# By default the conda build flag is off.
@@ -308,11 +308,13 @@ index c1b347e1..9493f246 100644
 +#-----------------------------------------------------------
 +export ACC_CONDA_BUILD="N"
 +
++
 +#-----------------------------------------------------------
 +# If using ACC_CONDA_BUILD configure here the path to your
 +# environment.
 +#-----------------------------------------------------------
 +export ACC_CONDA_PATH="${CONDA_PREFIX}"
++
 +
 +#-----------------------------------------------------------
 +# By default this flag is on.
@@ -322,20 +324,6 @@ index c1b347e1..9493f246 100644
 +# This option is only valid for MacOS (Darwin).
 +#-----------------------------------------------------------
 +export ACC_USE_MACPORTS="Y"
-+
-+export DIST_F90_REQUEST="gfortran"
-+export ACC_PLOT_PACKAGE="pgplot"
-+export ACC_PLOT_DISPLAY_TYPE="X"
-+export ACC_ENABLE_OPENMP="Y"
-+export ACC_ENABLE_MPI="Y"
-+export ACC_FORCE_BUILTIN_MPI="Y"
-+export ACC_ENABLE_GFORTRAN_OPTIMIZATION="Y"
-+export ACC_ENABLE_SHARED="Y"
-+export ACC_ENABLE_FPIC="Y"
-+export ACC_ENABLE_PROFILING="N"
-+export ACC_SET_GMAKE_JOBS="6"
-+export ACC_CONDA_BUILD="Y"
-+export ACC_USE_MACPORTS="N"
 +
 diff --git a/util/dist_source_me b/util/dist_source_me
 index f771c232..3992f105 100644
