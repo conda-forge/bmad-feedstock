@@ -182,7 +182,7 @@ index efadc40b..de3547d5 100755
 +    # We also remove examples and regression tests from the build list
 +
 +    # List of Project Directories - Order here matters!
-+    DIRLIST=( fgsl forest recipes_f-90_LEPP sim_utils bmad tao cpp_bmad_interface bsim util_programs lux )
++    DIRLIST=( forest recipes_f-90_LEPP sim_utils bmad tao cpp_bmad_interface bsim util_programs lux )
 +    [ "${ACC_PLOT_PACKAGE}" == "plplot" ] && DIRLIST=( plplot ${DIRLIST[*]} )
 +else
 +    # List of Project Directories - Order here matters!
