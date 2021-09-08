@@ -49,11 +49,11 @@ rm -f production/bin/*test*
 # binaries
 cp -r production/bin/* $PREFIX/bin/.
 # headers
-cp -r production/include/* $PREFIX/include/.
+cp -r production/include/* $PREFIX/include/. | true
 # libraries
 cp -r production/lib/* $PREFIX/lib/.
 # fortran modules
-cp -r production/modules/* $PREFIX/include/bmad/.
+cp -r production/modules/* $PREFIX/include/bmad/. | true
 # tao documenation files
 cp -r tao/doc $PREFIX/share/doc/tao/.
 

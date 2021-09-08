@@ -12,7 +12,7 @@ source:
     - 0001-bmad_conda_install.patch
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
 
 requirements:
@@ -44,7 +44,8 @@ requirements:
     - blas
     - lapack
     - lapack95
-    - gsl =2.5
+    - gsl ==2.6
+    - fgsl
     - xraylib
   run:
     - readline
@@ -58,7 +59,8 @@ requirements:
     - fftw
     - lapack
     - lapack95
-    - gsl =2.5
+    - gsl ==2.6
+    - fgsl
     - xraylib
     - xorg-libx11
     - xorg-xproto
