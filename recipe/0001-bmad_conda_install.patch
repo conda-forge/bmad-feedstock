@@ -97,6 +97,28 @@ index 3d4e593b..bc8dfa0c 100755
  	[ "${ACC_ENABLE_OPENMP}" == "Y" ] && CONFIG_OPTIONS="--enable-openmp"
  
  	export gsl_LIBS="-L${GSLLIBDIR} -lgsl -lgslcblas -lm"
+diff --git a/sim_utils/CMakeLists.txt b/sim_utils/CMakeLists.txt
+index 60619cc8..3b25f45e 100644
+--- a/sim_utils/CMakeLists.txt
++++ b/sim_utils/CMakeLists.txt
+@@ -7,8 +7,16 @@ SET (CREATE_SHARED true)
+ 
+ SET (PLOT_LINK_LIBS $ENV{PLOT_LINK_LIBS})
+ 
+-SET (INC_DIRS 
++# If this is a conda build, fgsl is contained
++# one level deeper in the include folder
++IF ($ENV{ACC_CONDA_BUILD})
++  SET (INC_DIRS
++    $ENV{ACC_CONDA_PATH}/include/fgsl/
+   )
++ELSE ()
++  SET (INC_DIRS
++  )
++ENDIF ()
+ 
+ SET (SRC_DIRS
+   file 
 diff --git a/sim_utils/plot/display_size_and_resolution.c b/sim_utils/plot/display_size_and_resolution.c
 index 60a66de8..b3f262c5 100644
 --- a/sim_utils/plot/display_size_and_resolution.c
@@ -162,7 +184,7 @@ index da83fe0d..8ad4217e 100644
    IF (NOT ${MSYS})
    SET (SHARED_LINK_LIBS
 diff --git a/util/Distribution_User_Utility_Wrapper b/util/Distribution_User_Utility_Wrapper
-index efadc40b..de3547d5 100755
+index efadc40b..467b3998 100755
 --- a/util/Distribution_User_Utility_Wrapper
 +++ b/util/Distribution_User_Utility_Wrapper
 @@ -11,11 +11,26 @@
