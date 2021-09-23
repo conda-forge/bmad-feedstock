@@ -6,7 +6,7 @@ package:
   version: {{ version | replace("-", ".") }}
 
 source:
-  url: https://github.com/bmad-sim/bmad_distribution/releases/download/{{ version }}/bmad_dist_{{ version[:-4] }}_{{ version[-4:] }}-{{ version[-1] }}.tgz
+  url: https://github.com/bmad-sim/bmad_distribution/releases/download/{{ version }}/bmad_dist_{{ version[:-4] }}_{{ version[-6:-2] }}-{{ version[-1] }}.tgz
   sha256: 9a7c9570b48a861ea28f839c8230d26c1437308ba9a924f5308e63769f256472
 
 build:
