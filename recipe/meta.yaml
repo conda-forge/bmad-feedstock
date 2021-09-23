@@ -1,13 +1,13 @@
 {% set name = "bmad" %}
-{% set version = "20210919" %}
+{% set version = "20210923-0" %}
 
 package:
   name: {{ name|lower }}
-  version: {{ version }}
+  version: {{ version | replace("-", ".") }}
 
 source:
-  url: https://github.com/bmad-sim/bmad_distribution/releases/download/{{ version }}/bmad_dist_{{ version[:-4] }}_{{ version[-4:] }}.tgz
-  sha256: 613213e43a03980b7d0ba5ea92f4ab1de0090fb506b6534608cbc23f2dabfa42
+  url: https://github.com/bmad-sim/bmad_distribution/releases/download/{{ version }}/bmad_dist_{{ version[:-4] }}_{{ version[-4:] }}-{{ version[-1] }}.tgz
+  sha256: 9a7c9570b48a861ea28f839c8230d26c1437308ba9a924f5308e63769f256472
 
 build:
   number: 0
