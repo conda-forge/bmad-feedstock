@@ -12,7 +12,7 @@ source:
   sha256: 9fd8008af9ba70a203a507dd094244fa70da43ddc927da93e4a852d253969ef1
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
 
 requirements:
@@ -37,7 +37,6 @@ requirements:
     - xorg-libxt
     - pgplot
     - hdf5
-    - hdf5-static  # [osx]
     - xorg-libx11
     - xorg-xproto
     - fftw
@@ -55,7 +54,6 @@ requirements:
     - xorg-libxt
     - pgplot
     - hdf5
-    - hdf5-static  # [osx]
     - fftw
     - lapack
     - lapack95
