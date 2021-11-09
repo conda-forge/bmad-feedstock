@@ -45,11 +45,8 @@ if [[ "$target_platform" == osx-* ]]; then
   ${CONDA_PYTHON_EXE} ${RECIPE_DIR}/fix_rpath_macos.py
 fi
 
-# Copy tracking_method_test-exe to PREFIX
-cp -r production/bin/tracking_method_test* $PREFIX/bin/.
-
-## Remove all test binaries
-rm -f production/bin/*test*
+# ## Remove all test binaries
+# rm -f production/bin/*test*
 
 ## install products
 # binaries
