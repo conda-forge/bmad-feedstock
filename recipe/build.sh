@@ -32,6 +32,7 @@ util/dist_build_production
 
 cd regression_tests
 mk tracking_method_test-exe
+cd ..
 
 # create folders if they don't exist yet
 mkdir -p $PREFIX/bin
