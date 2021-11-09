@@ -30,6 +30,9 @@ fi
 echo "**** Invoking dist_build_production"
 util/dist_build_production
 
+cd regression_tests
+mk tracking_method_test-exe
+
 # create folders if they don't exist yet
 mkdir -p $PREFIX/bin
 mkdir -p $PREFIX/lib
@@ -41,6 +44,9 @@ if [[ "$target_platform" == osx-* ]]; then
   echo "Fixing MacOS rpath with Python: ${CONDA_PYTHON_EXE}"
   ${CONDA_PYTHON_EXE} ${RECIPE_DIR}/fix_rpath_macos.py
 fi
+
+# Copy tracking_method_test-exe to PREFIX
+cp -r production/bin/tracking_method_test* $PREFIX/bin/.
 
 ## Remove all test binaries
 rm -f production/bin/*test*
