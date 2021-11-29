@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+cp $BUILD_PREFIX/share/gnuconfig/config.* .
+
 echo "**** Setting up util/dist_prefs"
 
 cat <<EOF >> util/dist_prefs
