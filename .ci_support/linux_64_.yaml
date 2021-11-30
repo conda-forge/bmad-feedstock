@@ -24,6 +24,10 @@ fortran_compiler_version:
 - '9'
 hdf5:
 - 1.12.1
+libblas:
+- 3.8 *netlib
+liblapack:
+- 3.8 *netlib
 ncurses:
 - '6.2'
 pango:
