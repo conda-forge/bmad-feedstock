@@ -60,6 +60,8 @@ cp -r production/lib/* $PREFIX/lib/.
 cp -r production/modules/* $PREFIX/include/bmad/. | true
 # tao documenation files
 cp -r tao/doc $PREFIX/share/doc/tao/.
+# tao VERSION file
+cp -r tao/VERSION $PREFIX/share/doc/tao/.
 
 # Eliminate lib folder to avoid issues:
 rm -rf production/lib
