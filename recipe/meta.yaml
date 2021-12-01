@@ -1,5 +1,5 @@
 {% set name = "bmad" %}
-{% set version = "20211129-1" %}
+{% set version = "20211130-0" %}
 {% set major = version.split("-")[0] %}
 {% set minor = version.split("-")[1] %}
 
@@ -9,10 +9,10 @@ package:
 
 source:
   url: https://github.com/bmad-sim/bmad_distribution/releases/download/{{ version }}/bmad_dist_{{ major[:-4] }}_{{ major[-4:] }}-{{ minor }}.tgz
-  sha256: 58164354b42d61b5f74e77464c125771b3c2872158a8dbc57215c2881adc1988
+  sha256: a12466e2d588cbe1b74b487067a9844a18cfd36d0415e660f45de5ab0711e1ae
 
 build:
-  number: 1
+  number: 0
   skip: true  # [win]
 
 requirements:
@@ -40,8 +40,8 @@ requirements:
     - xorg-libx11
     - xorg-xproto
     - fftw
-    - blas
-    - lapack
+    - libblas
+    - liblapack
     - lapack95
     - gsl ==2.6
     - fgsl
@@ -55,7 +55,8 @@ requirements:
     - pgplot
     - hdf5
     - fftw
-    - lapack
+    - libblas
+    - liblapack
     - lapack95
     - gsl ==2.6
     - fgsl

@@ -27,6 +27,9 @@ if [[ "$target_platform" == linux-* ]]; then
   ln -s $GFORTRAN $BUILD_PREFIX/bin/gfortran
 fi
 
+rm -f $PREFIX/lib/liblapack95.so
+cp $PREFIX/lib/lapack95.a $PREFIX/lib/liblapack95.a
+
 echo "**** Invoking dist_build_production"
 util/dist_build_production
 
