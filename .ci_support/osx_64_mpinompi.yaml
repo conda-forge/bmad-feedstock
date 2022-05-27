@@ -30,8 +30,14 @@ llvm_openmp:
 - '13'
 macos_machine:
 - x86_64-apple-darwin13.4.0
+mpi:
+- nompi
+mpich:
+- '4'
 ncurses:
 - '6'
+openmpi:
+- '4'
 pango:
 - '1.50'
 pin_run_as_build:
