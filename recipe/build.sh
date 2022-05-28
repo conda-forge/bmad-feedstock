@@ -1,8 +1,30 @@
 #!/usr/bin/env bash
 
-echo "**** Setting up util/dist_prefs"
+# MPI switches
+if [[ "$mpi" != "nompi" ]]; then
+  echo "**** Setting up util/dist_prefs with MPI"
 
-cat <<EOF >> util/dist_prefs
+  cat <<EOF >> util/dist_prefs
+export DIST_F90_REQUEST="gfortran"
+export ACC_PLOT_PACKAGE="pgplot"
+export ACC_PLOT_DISPLAY_TYPE="X"
+export ACC_ENABLE_OPENMP="Y"
+export ACC_ENABLE_MPI="Y"
+export ACC_FORCE_BUILTIN_MPI="Y"
+export ACC_ENABLE_GFORTRAN_OPTIMIZATION="Y"
+export ACC_ENABLE_SHARED="Y"
+export ACC_ENABLE_FPIC="Y"
+export ACC_ENABLE_PROFILING="N"
+export ACC_SET_GMAKE_JOBS="2"
+export ACC_CONDA_BUILD="Y"
+export ACC_CONDA_PATH="$PREFIX"
+export ACC_USE_MACPORTS="N"
+EOF
+
+else
+  echo "**** Setting up util/dist_prefs"
+
+  cat <<EOF >> util/dist_prefs
 export DIST_F90_REQUEST="gfortran"
 export ACC_PLOT_PACKAGE="pgplot"
 export ACC_PLOT_DISPLAY_TYPE="X"
@@ -18,6 +40,9 @@ export ACC_CONDA_BUILD="Y"
 export ACC_CONDA_PATH="$PREFIX"
 export ACC_USE_MACPORTS="N"
 EOF
+
+fi
+
 
 echo "**** Invoking dist_source_me"
 source util/dist_source_me
