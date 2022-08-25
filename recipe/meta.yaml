@@ -1,5 +1,5 @@
 {% set name = "bmad" %}
-{% set version = "20220820-0" %}
+{% set version = "20220825-0" %}
 {% set major = version.split("-")[0] %}
 {% set minor = version.split("-")[1] %}
 
@@ -18,7 +18,7 @@ package:
 
 source:
   url: https://github.com/bmad-sim/bmad_distribution/releases/download/{{ version }}/bmad_dist_{{ major[:-4] }}_{{ major[-4:] }}-{{ minor }}.tgz
-  sha256: 521b595a55ba76a559695b8311c47c089d18381b0245e44571021d012e3497ca
+  sha256: 66dabfbe4cdbe5ac1d3b0adf8ec7cfed79372678397ccd85eacdffb5ba3829ef
 
 build:
   number: {{ build }}
