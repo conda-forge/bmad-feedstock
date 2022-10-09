@@ -6,7 +6,7 @@ if [[ "$mpi" != "nompi" ]]; then
 
   cat <<EOF >> util/dist_prefs
 export DIST_F90_REQUEST="gfortran"
-export ACC_PLOT_PACKAGE="pgplot"
+export ACC_PLOT_PACKAGE="plplot"
 export ACC_PLOT_DISPLAY_TYPE="X"
 export ACC_ENABLE_OPENMP="Y"
 export ACC_ENABLE_MPI="Y"
@@ -26,7 +26,7 @@ else
 
   cat <<EOF >> util/dist_prefs
 export DIST_F90_REQUEST="gfortran"
-export ACC_PLOT_PACKAGE="pgplot"
+export ACC_PLOT_PACKAGE="plplot"
 export ACC_PLOT_DISPLAY_TYPE="X"
 export ACC_ENABLE_OPENMP="Y"
 export ACC_ENABLE_MPI="N"
