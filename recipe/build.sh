@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+
 # MPI switches
 if [[ "$mpi" != "nompi" ]]; then
   echo "**** Setting up util/dist_prefs with MPI"
