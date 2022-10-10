@@ -1,12 +1,10 @@
 #!/usr/bin/env bash
 
-
 # MPI switches
 if [[ "$mpi" != "nompi" ]]; then
   echo "**** Setting up util/dist_prefs with MPI"
 
   cat <<EOF >> util/dist_prefs
-export VERBOSE=1  
 export DIST_F90_REQUEST="gfortran"
 export ACC_PLOT_PACKAGE="plplot"
 export ACC_PLOT_DISPLAY_TYPE="X"
@@ -27,7 +25,6 @@ else
   echo "**** Setting up util/dist_prefs"
 
   cat <<EOF >> util/dist_prefs
-export VERBOSE=1
 export DIST_F90_REQUEST="gfortran"
 export ACC_PLOT_PACKAGE="plplot"
 export ACC_PLOT_DISPLAY_TYPE="X"

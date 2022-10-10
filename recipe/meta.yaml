@@ -53,6 +53,7 @@ requirements:
     - automake
     - autoconf
     - libtool
+    - libglib
     - m4
     - pkg-config
     - llvm-openmp  # [osx]
