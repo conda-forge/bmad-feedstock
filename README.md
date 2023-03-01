@@ -1,11 +1,11 @@
-About bmad
-==========
+About bmad-feedstock
+====================
+
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/bmad-feedstock/blob/main/LICENSE.txt)
 
 Home: https://www.classe.cornell.edu/bmad
 
 Package license: GPL-3.0-or-later
-
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/bmad-feedstock/blob/main/LICENSE.txt)
 
 Summary: Bmad is an object oriented, open source, subroutine library for relativistic charged-particle dynamics simulations in accelerators and storage rings.
 
