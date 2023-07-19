@@ -58,6 +58,9 @@ echo "***DEBUG CMAKE_ARGS: ${CMAKE_ARGS}"
 rm -f $PREFIX/lib/liblapack95.so
 cp $PREFIX/lib/lapack95.a $PREFIX/lib/liblapack95.a
 
+# Get an updated config.sub and config.guess
+cp $BUILD_PREFIX/share/gnuconfig/config.* .
+
 echo "**** Invoking dist_build_production"
 util/dist_build_production
 
@@ -111,5 +114,4 @@ echo "unset TAO_DIR" >> $DEACTIVATE.sh
 unset ACTIVATE
 unset DEACTIVATE
 
-# Get an updated config.sub and config.guess
-cp $BUILD_PREFIX/share/gnuconfig/config.* .
+
