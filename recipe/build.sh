@@ -42,6 +42,8 @@ export ACC_USE_MACPORTS="N"
 EOF
 
 fi
+echo "***DEBUG CMAKE_ARGS: ${CMAKE_ARGS}"
+
 
 
 echo "**** Invoking dist_source_me"
@@ -52,6 +54,7 @@ if [[ "$target_platform" == linux-* ]]; then
   ln -s $GFORTRAN $BUILD_PREFIX/bin/gfortran
 fi
 
+echo "***DEBUG CMAKE_ARGS: ${CMAKE_ARGS}"
 rm -f $PREFIX/lib/liblapack95.so
 cp $PREFIX/lib/lapack95.a $PREFIX/lib/liblapack95.a
 
