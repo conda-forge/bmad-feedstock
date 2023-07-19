@@ -52,12 +52,13 @@ requirements:
     - make
     - automake
     - autoconf
+    - gnuconfig   # [unix]      
     - libtool
     - m4
     - pkg-config
     - llvm-openmp  # [osx]
     - libgomp      # [linux]
-    - openmpi  # [mpi == "openmpi" and (build_platform != target_platform)]    
+    - openmpi  # [mpi == "openmpi" and (build_platform != target_platform)]     
   host:
     - readline
     - ncurses
