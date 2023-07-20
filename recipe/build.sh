@@ -45,7 +45,7 @@ fi
 echo "***DEBUG CMAKE_ARGS: ${CMAKE_ARGS}"
 
 echo "***DEBUG Patching CMAKE_ARGS into util/mk-mkd"
-sed -i "s|cmake -DCMAKE_BUILD_TYPE|cmake \${CMAKE_ARGS} -DCMAKE_BUILD_TYPE|" util/mk-mkd
+sed -i "s/cmake -DCMAKE_BUILD_TYPE/cmake \${CMAKE_ARGS} -DCMAKE_BUILD_TYPE/" util/mk-mkd
 
 
 echo "**** Invoking dist_source_me"
