@@ -47,10 +47,8 @@ echo "***DEBUG CMAKE_ARGS: ${CMAKE_ARGS}"
 echo "**** Invoking dist_source_me"
 source util/dist_source_me
 
-if [[ "$target_platform" == linux-* ]]; then
-  echo "**** creating gfortran link "
-  ln -s $GFORTRAN $BUILD_PREFIX/bin/gfortran
-fi
+echo "**** creating gfortran link "
+ln -sf $BUILD_PREFIX/bin/$CONDA_TOOLCHAIN_HOST-gfortran $BUILD_PREFIX/bin/gfortran
 
 echo "***DEBUG CMAKE_ARGS: ${CMAKE_ARGS}"
 rm -f $PREFIX/lib/liblapack95.so
