@@ -79,6 +79,11 @@ cp $BUILD_PREFIX/share/gnuconfig/config.* .
 echo "***DEBUG try patching gnuconfig into a subdirectory"
 cp $BUILD_PREFIX/share/gnuconfig/config.* ./forest
 
+if [[ "${CONDA_BUILD_CROSS_COMPILATION:-0}" == "1" ]]; then
+  # for openmpi cross compilation
+  export OPAL_PREFIX=$PREFIX
+fi
+
 
 echo "**** Invoking dist_build_production"
 util/dist_build_production
