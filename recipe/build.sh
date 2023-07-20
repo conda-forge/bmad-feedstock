@@ -45,6 +45,22 @@ fi
 echo "***DEBUG CMAKE_ARGS: ${CMAKE_ARGS}"
 
 
+# Find the location of the cmake executable using the 'which' command
+cmake_location=$(which cmake)
+
+echo "***DEBUG cmake is in: ${cmake_location}"
+
+# Check if cmake is found and set the alias accordingly
+if [ -x "$cmake_location" ]; then
+    alias cmake="$cmake_location ${CMAKE_ARGS}"
+else
+    echo "cmake executable not found in PATH."
+    exit 1
+fi
+
+
+
+
 
 echo "**** Invoking dist_source_me"
 source util/dist_source_me
