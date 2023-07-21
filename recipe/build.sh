@@ -114,4 +114,5 @@ echo "unset TAO_DIR" >> $DEACTIVATE.sh
 unset ACTIVATE
 unset DEACTIVATE
 
+echo "**** build.sh DONE"
 
