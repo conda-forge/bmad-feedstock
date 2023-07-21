@@ -60,8 +60,7 @@ requirements:
     - pkg-config
     - llvm-openmp  # [osx]
     - libgomp      # [linux]
-    - openmpi  # [mpi == "openmpi" and (build_platform != target_platform)]   
-    - python  
+    - openmpi  # [mpi == "openmpi" and (build_platform != target_platform)]     
   host:
     - readline
     - ncurses
