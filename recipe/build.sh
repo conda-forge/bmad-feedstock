@@ -42,7 +42,6 @@ export ACC_USE_MACPORTS="N"
 EOF
 
 fi
-echo "***DEBUG CMAKE_ARGS: ${CMAKE_ARGS}"
 
 echo "**** Invoking dist_source_me"
 source util/dist_source_me
@@ -50,14 +49,11 @@ source util/dist_source_me
 echo "**** creating gfortran link "
 ln -sf $BUILD_PREFIX/bin/$CONDA_TOOLCHAIN_HOST-gfortran $BUILD_PREFIX/bin/gfortran
 
-echo "***DEBUG CMAKE_ARGS: ${CMAKE_ARGS}"
 rm -f $PREFIX/lib/liblapack95.so
 cp $PREFIX/lib/lapack95.a $PREFIX/lib/liblapack95.a
 
 # Get an updated config.sub and config.guess
 cp $BUILD_PREFIX/share/gnuconfig/config.* .
-echo "***DEBUG try patching gnuconfig into a subdirectory"
-cp $BUILD_PREFIX/share/gnuconfig/config.* ./forest
 
 if [[ "${CONDA_BUILD_CROSS_COMPILATION:-0}" == "1" ]]; then
   # for openmpi cross compilation
