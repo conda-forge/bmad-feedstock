@@ -102,7 +102,7 @@ requirements:
 
 test:
   commands:
-    - tao -help
+    - tao -help # [build_platform == target_platform]
 
 about:
   home: https://www.classe.cornell.edu/bmad
