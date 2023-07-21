@@ -74,8 +74,8 @@ mkdir -p $PREFIX/lib
 mkdir -p $PREFIX/include/bmad
 mkdir -p $PREFIX/share/doc/tao
 
-# Fix rpath for MacOS
-if [[ "$target_platform" == osx-* ]]; then
+# Fix rpath for MacOS (except cross-compile)
+if [[ "$target_platform" == osx-* ]] && [[ "$target_platform" ==  "$build_platform" ]]; then
   echo "Fixing MacOS rpath with Python: ${CONDA_PYTHON_EXE}"
   ${CONDA_PYTHON_EXE} ${RECIPE_DIR}/fix_rpath_macos.py
 fi
