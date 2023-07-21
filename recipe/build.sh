@@ -43,17 +43,23 @@ EOF
 
 fi
 
-
 echo "**** Invoking dist_source_me"
 source util/dist_source_me
 
-if [[ "$target_platform" == linux-* ]]; then
-  echo "**** creating gfortran link "
-  ln -s $GFORTRAN $BUILD_PREFIX/bin/gfortran
-fi
+echo "**** creating gfortran link "
+ln -sf $BUILD_PREFIX/bin/$CONDA_TOOLCHAIN_HOST-gfortran $BUILD_PREFIX/bin/gfortran
 
 rm -f $PREFIX/lib/liblapack95.so
 cp $PREFIX/lib/lapack95.a $PREFIX/lib/liblapack95.a
+
+# Get an updated config.sub and config.guess
+cp $BUILD_PREFIX/share/gnuconfig/config.* .
+
+if [[ "${CONDA_BUILD_CROSS_COMPILATION:-0}" == "1" ]]; then
+  # for openmpi cross compilation
+  export OPAL_PREFIX=$PREFIX
+fi
+
 
 echo "**** Invoking dist_build_production"
 util/dist_build_production
@@ -68,7 +74,7 @@ mkdir -p $PREFIX/lib
 mkdir -p $PREFIX/include/bmad
 mkdir -p $PREFIX/share/doc/tao
 
-# Fix rpath for MacOS
+# Fix rpath for MacOS (except cross-compile)
 if [[ "$target_platform" == osx-* ]]; then
   echo "Fixing MacOS rpath with Python: ${CONDA_PYTHON_EXE}"
   ${CONDA_PYTHON_EXE} ${RECIPE_DIR}/fix_rpath_macos.py
@@ -107,3 +113,6 @@ echo "unset TAO_DIR" >> $DEACTIVATE.sh
 
 unset ACTIVATE
 unset DEACTIVATE
+
+echo "**** build.sh DONE"
+

@@ -10,6 +10,7 @@ from subprocess import check_output
 
 # =============================================================================
 if __name__ == '__main__':
+  print('**** fix_rpath_macos.py')
   lib_files = glob.glob('production/lib/*.dylib')
   for ext_file in lib_files:
     libraries = check_output([os.environ['OTOOL'], '-L', ext_file]).decode('utf8').split('\n')
@@ -32,3 +33,4 @@ if __name__ == '__main__':
             cmd = [os.environ["INSTALL_NAME_TOOL"], '-change', lib, new_lib, ext_file]
             print('\t\t', ' '.join(cmd))
             output = check_output(cmd)
+  print('**** fix_rpath_macos.py DONE')
