@@ -1,9 +1,9 @@
 {% set name = "bmad" %}
-{% set version = "20230901-0" %}
+{% set version = "20230905-0" %}
 {% set major = version.split("-")[0] %}
 {% set minor = version.split("-")[1] %}
 
-{% set build = 1 %}
+{% set build = 0 %}
 # ensure mpi is defined (needed for conda-smithy recipe-lint)
 {% set mpi = mpi or 'nompi' %}
 
@@ -18,7 +18,7 @@ package:
 
 source:
   url: https://github.com/bmad-sim/bmad_distribution/releases/download/{{ version }}/bmad_dist_{{ major[:-4] }}_{{ major[-4:] }}-{{ minor }}.tgz
-  sha256: a63e4f2db1ac788b330166403866fa40f23a86f1c9ad3caaced9ac6eb0f7115d
+  sha256: dd0a87af0887c2db7977ecd55f740b824aebae03babb1b1b9fd5723333e3d2aa
   patches:
     - 0001-cmake_args.patch
 
