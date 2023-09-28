@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Switch into the extracted source directory
+cd bmad-ecosystem
+
 # MPI switches
 if [[ "$mpi" != "nompi" ]]; then
   echo "**** Setting up util/dist_prefs with MPI"
