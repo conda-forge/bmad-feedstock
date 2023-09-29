@@ -78,14 +78,20 @@ fi
 # build production if BUILD_PRODUCTION is set to Y
 if [[ "$BUILD_PRODUCTION" == "Y" ]]; then
   echo "**** Invoking dist_build_production"
+  export THIS_SCRIPT="mk"
   util/dist_build_production
 else
   echo "**** Invoking dist_build_debug"
+  export THIS_SCRIPT="mkd"
   util/dist_build_debug
 fi
 
 cd regression_tests
-mk tracking_method_test-exe
+if [[ "$BUILD_PRODUCTION" == "Y" ]]; then
+  mk tracking_method_test-exe
+else
+  mkd tracking_method_test-exe
+fi
 cd ..
 
 # print out the contents of the local folder
