@@ -8,6 +8,10 @@ if [[ "$build_type" != "production" ]]; then
     ARTIFACT_FOLDER="debug"
 fi
 
+echo "** Build type is $build_type"
+echo "** Build production is $BUILD_PRODUCTION"
+echo "** Artifact folder is $ARTIFACT_FOLDER"
+
 # MPI switches
 if [[ "$mpi" != "nompi" ]]; then
   echo "**** Setting up util/dist_prefs with MPI"
@@ -76,13 +80,18 @@ if [[ "$BUILD_PRODUCTION" == "Y" ]]; then
   echo "**** Invoking dist_build_production"
   util/dist_build_production
 else
-  echo "**** Invoking dist_build"
+  echo "**** Invoking dist_build_debug"
   util/dist_build_debug
 fi
 
 cd regression_tests
 mk tracking_method_test-exe
 cd ..
+
+# print out the contents of the local folder
+echo "Artifacts folder is: $ARTIFACT_FOLDER".
+echo "Listing contents of source folder:"
+ls -l
 
 # create folders if they don't exist yet
 mkdir -p $PREFIX/bin
