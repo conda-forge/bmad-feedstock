@@ -8,12 +8,20 @@ jobs:
     vmImage: ubuntu-latest
   strategy:
     matrix:
-      linux_64_mpinompi:
-        CONFIG: linux_64_mpinompi
+      linux_64_build_typedebugmpinompi:
+        CONFIG: linux_64_build_typedebugmpinompi
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-      linux_64_mpiopenmpi:
-        CONFIG: linux_64_mpiopenmpi
+      linux_64_build_typedebugmpiopenmpi:
+        CONFIG: linux_64_build_typedebugmpiopenmpi
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+      linux_64_build_typeproductionmpinompi:
+        CONFIG: linux_64_build_typeproductionmpinompi
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+      linux_64_build_typeproductionmpiopenmpi:
+        CONFIG: linux_64_build_typeproductionmpiopenmpi
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
   timeoutInMinutes: 360

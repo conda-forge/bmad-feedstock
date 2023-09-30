@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+BUILD_PRODUCTION="Y"
+ARTIFACT_FOLDER="production"
+
+if [[ "$build_type" != "production" ]]; then
+    BUILD_PRODUCTION="N"
+    ARTIFACT_FOLDER="debug"
+fi
+
 # MPI switches
 if [[ "$mpi" != "nompi" ]]; then
   echo "**** Setting up util/dist_prefs with MPI"
@@ -11,7 +19,7 @@ export ACC_PLOT_DISPLAY_TYPE="X"
 export ACC_ENABLE_OPENMP="Y"
 export ACC_ENABLE_MPI="Y"
 export ACC_FORCE_BUILTIN_MPI="Y"
-export ACC_ENABLE_GFORTRAN_OPTIMIZATION="Y"
+export ACC_ENABLE_GFORTRAN_OPTIMIZATION="$BUILD_PRODUCTION"
 export ACC_ENABLE_SHARED="Y"
 export ACC_ENABLE_SHARED_ONLY="N"
 export ACC_ENABLE_FPIC="Y"
@@ -32,7 +40,7 @@ export ACC_PLOT_DISPLAY_TYPE="X"
 export ACC_ENABLE_OPENMP="Y"
 export ACC_ENABLE_MPI="N"
 export ACC_FORCE_BUILTIN_MPI="N"
-export ACC_ENABLE_GFORTRAN_OPTIMIZATION="Y"
+export ACC_ENABLE_GFORTRAN_OPTIMIZATION="$BUILD_PRODUCTION"
 export ACC_ENABLE_SHARED="Y"
 export ACC_ENABLE_SHARED_ONLY="N"
 export ACC_ENABLE_FPIC="Y"
@@ -63,12 +71,27 @@ if [[ "${CONDA_BUILD_CROSS_COMPILATION:-0}" == "1" ]]; then
 fi
 
 
-echo "**** Invoking dist_build_production"
-util/dist_build_production
+# build production if BUILD_PRODUCTION is set to Y
+if [[ "$BUILD_PRODUCTION" == "Y" ]]; then
+  echo "**** Invoking dist_build_production"
+  util/dist_build_production
+else
+  echo "**** Invoking dist_build_debug"
+  util/dist_build_debug
+fi
 
 cd regression_tests
-mk tracking_method_test-exe
+if [[ "$BUILD_PRODUCTION" == "Y" ]]; then
+  mk tracking_method_test-exe
+else
+  mkd tracking_method_test-exe
+fi
 cd ..
+
+# print out the contents of the local folder
+echo "Artifacts folder is: $ARTIFACT_FOLDER".
+echo "Listing contents of source folder:"
+ls -l
 
 # create folders if they don't exist yet
 mkdir -p $PREFIX/bin
@@ -87,19 +110,19 @@ fi
 
 ## install products
 # binaries
-cp -r production/bin/* $PREFIX/bin/.
+cp -r $ARTIFACT_FOLDER/bin/* $PREFIX/bin/.
 # headers
-cp -r production/include/* $PREFIX/include/. | true
+cp -r $ARTIFACT_FOLDER/include/* $PREFIX/include/. | true
 # libraries
-cp -r production/lib/* $PREFIX/lib/.
+cp -r $ARTIFACT_FOLDER/lib/* $PREFIX/lib/.
 # fortran modules
-cp -r production/modules/* $PREFIX/include/bmad/. | true
+cp -r $ARTIFACT_FOLDER/modules/* $PREFIX/include/bmad/. | true
 # tao documenation files
 cp -r tao/doc $PREFIX/share/doc/tao/.
 
 # Eliminate lib folder to avoid issues:
-rm -rf production/lib
-rm -rf production/bin
+rm -rf $ARTIFACT_FOLDER/lib
+rm -rf $ARTIFACT_FOLDER/bin
 
 # Create auxiliary dirs
 mkdir -p $PREFIX/etc/conda/activate.d
