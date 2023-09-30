@@ -10,7 +10,7 @@ from subprocess import check_output
 
 # =============================================================================
 if __name__ == '__main__':
-  build_type = os.environ['BUILD_TYPE']
+  build_type = os.environ['build_type']
 
   print('**** fix_rpath_macos.py')
   lib_files = glob.glob(f'{build_type}/lib/*.dylib')

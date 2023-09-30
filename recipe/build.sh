@@ -8,10 +8,6 @@ if [[ "$build_type" != "production" ]]; then
     ARTIFACT_FOLDER="debug"
 fi
 
-echo "** Build type is $build_type"
-echo "** Build production is $BUILD_PRODUCTION"
-echo "** Artifact folder is $ARTIFACT_FOLDER"
-
 # MPI switches
 if [[ "$mpi" != "nompi" ]]; then
   echo "**** Setting up util/dist_prefs with MPI"
@@ -78,11 +74,9 @@ fi
 # build production if BUILD_PRODUCTION is set to Y
 if [[ "$BUILD_PRODUCTION" == "Y" ]]; then
   echo "**** Invoking dist_build_production"
-  export THIS_SCRIPT="mk"
   util/dist_build_production
 else
   echo "**** Invoking dist_build_debug"
-  export THIS_SCRIPT="mkd"
   util/dist_build_debug
 fi
 
