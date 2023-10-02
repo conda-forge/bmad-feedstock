@@ -17,8 +17,6 @@ package:
 source:
   url: https://github.com/bmad-sim/bmad-ecosystem/releases/download/{{ version }}/bmad_dist.tar.gz
   sha256: 5ed5e1e5c0aff9e8d186522ba493ac8a93af06ee19f70776c17aced13fe75ce9
-  patches:
-    - 0001-build-debug.patch
 
 build:
   number: {{ build }}
