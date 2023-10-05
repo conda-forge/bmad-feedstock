@@ -5,7 +5,7 @@ build_type:
 c_compiler:
 - clang
 c_compiler_version:
-- '15'
+- '16'
 cairo:
 - '1'
 channel_sources:
@@ -15,7 +15,7 @@ channel_targets:
 cxx_compiler:
 - clangxx
 cxx_compiler_version:
-- '15'
+- '16'
 fftw:
 - '3'
 fortran_compiler:
@@ -29,7 +29,7 @@ libblas:
 liblapack:
 - 3.9 *netlib
 llvm_openmp:
-- '15'
+- '16'
 macos_machine:
 - arm64-apple-darwin20.0.0
 mpi:
