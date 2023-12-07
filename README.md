@@ -41,6 +41,13 @@ Current build status
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
           <tbody><tr>
+              <td>linux_64_build_typedebugmpimpich</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=12819&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_build_typedebugmpimpich" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
               <td>linux_64_build_typedebugmpinompi</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=12819&branchName=main">
@@ -52,6 +59,13 @@ Current build status
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=12819&branchName=main">
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_build_typedebugmpiopenmpi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_64_build_typeproductionmpimpich</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=12819&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_build_typeproductionmpimpich" alt="variant">
                 </a>
               </td>
             </tr><tr>
@@ -69,6 +83,13 @@ Current build status
                 </a>
               </td>
             </tr><tr>
+              <td>osx_64_build_typedebugmpimpich</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=12819&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_build_typedebugmpimpich" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
               <td>osx_64_build_typedebugmpinompi</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=12819&branchName=main">
@@ -80,6 +101,13 @@ Current build status
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=12819&branchName=main">
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_build_typedebugmpiopenmpi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_64_build_typeproductionmpimpich</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=12819&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_build_typeproductionmpimpich" alt="variant">
                 </a>
               </td>
             </tr><tr>
@@ -97,6 +125,13 @@ Current build status
                 </a>
               </td>
             </tr><tr>
+              <td>osx_arm64_build_typedebugmpimpich</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=12819&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_build_typedebugmpimpich" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
               <td>osx_arm64_build_typedebugmpinompi</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=12819&branchName=main">
@@ -108,6 +143,13 @@ Current build status
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=12819&branchName=main">
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_build_typedebugmpiopenmpi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_arm64_build_typeproductionmpimpich</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=12819&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_build_typeproductionmpimpich" alt="variant">
                 </a>
               </td>
             </tr><tr>

@@ -8,11 +8,17 @@ jobs:
     vmImage: macOS-11
   strategy:
     matrix:
+      osx_64_build_typedebugmpimpich:
+        CONFIG: osx_64_build_typedebugmpimpich
+        UPLOAD_PACKAGES: 'True'
       osx_64_build_typedebugmpinompi:
         CONFIG: osx_64_build_typedebugmpinompi
         UPLOAD_PACKAGES: 'True'
       osx_64_build_typedebugmpiopenmpi:
         CONFIG: osx_64_build_typedebugmpiopenmpi
+        UPLOAD_PACKAGES: 'True'
+      osx_64_build_typeproductionmpimpich:
+        CONFIG: osx_64_build_typeproductionmpimpich
         UPLOAD_PACKAGES: 'True'
       osx_64_build_typeproductionmpinompi:
         CONFIG: osx_64_build_typeproductionmpinompi
@@ -20,11 +26,17 @@ jobs:
       osx_64_build_typeproductionmpiopenmpi:
         CONFIG: osx_64_build_typeproductionmpiopenmpi
         UPLOAD_PACKAGES: 'True'
+      osx_arm64_build_typedebugmpimpich:
+        CONFIG: osx_arm64_build_typedebugmpimpich
+        UPLOAD_PACKAGES: 'True'
       osx_arm64_build_typedebugmpinompi:
         CONFIG: osx_arm64_build_typedebugmpinompi
         UPLOAD_PACKAGES: 'True'
       osx_arm64_build_typedebugmpiopenmpi:
         CONFIG: osx_arm64_build_typedebugmpiopenmpi
+        UPLOAD_PACKAGES: 'True'
+      osx_arm64_build_typeproductionmpimpich:
+        CONFIG: osx_arm64_build_typeproductionmpimpich
         UPLOAD_PACKAGES: 'True'
       osx_arm64_build_typeproductionmpinompi:
         CONFIG: osx_arm64_build_typeproductionmpinompi
