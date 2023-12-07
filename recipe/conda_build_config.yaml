@@ -1,6 +1,7 @@
 mpi:
   - nompi
   - openmpi  # [not win]
+  - mpich    # [not win]
 build_type:
   - production
   - debug
