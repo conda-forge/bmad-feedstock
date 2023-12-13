@@ -71,7 +71,7 @@ requirements:
     - pango
     - xorg-libxt
     - plplot
-    - libglib
+    - glib
     - hdf5
     - xorg-libx11
     - xorg-xproto
@@ -90,7 +90,7 @@ requirements:
     - pango
     - xorg-libxt
     - plplot
-    - libglib
+    - glib
     - hdf5
     - fftw
     - libblas
