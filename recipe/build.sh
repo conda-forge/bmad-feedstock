@@ -72,6 +72,7 @@ fi
 
 # Do not build plplot on any platform; rely on the conda-forge build.
 patch -p1 < "${RECIPE_DIR}/skip-plot-build.patch"
+patch -p1 < "${RECIPE_DIR}/add-plplot-to-include.patch"
 
 # build production if BUILD_PRODUCTION is set to Y
 if [[ "$BUILD_PRODUCTION" == "Y" ]]; then

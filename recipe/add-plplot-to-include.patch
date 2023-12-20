@@ -1,0 +1,12 @@
+diff --git a/sim_utils/CMakeLists.txt b/sim_utils/CMakeLists.txt
+index 2804e9d..8a4ce2d 100644
+--- a/sim_utils/CMakeLists.txt
++++ b/sim_utils/CMakeLists.txt
+@@ -12,6 +12,7 @@ SET (PLOT_LINK_LIBS $ENV{PLOT_LINK_LIBS})
+ IF ($ENV{ACC_CONDA_BUILD})
+   SET (INC_DIRS
+     $ENV{ACC_CONDA_PATH}/include/fgsl/
++    $ENV{ACC_CONDA_PATH}/include/plplot/
+   )
+ ELSE ()
+   SET (INC_DIRS
