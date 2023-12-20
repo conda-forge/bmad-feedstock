@@ -74,7 +74,7 @@ fi
 patch -p1 < "${RECIPE_DIR}/skip-plot-build.patch"
 
 # Hack: copy in plplot fortran modules
-cp "$PREFIX/lib/fortran/modules/plplot/*.mod" "$PREFIX/include"
+cp "$PREFIX/lib/fortran/modules/plplot"/*.mod "$PREFIX/include"
 
 # build production if BUILD_PRODUCTION is set to Y
 if [[ "$BUILD_PRODUCTION" == "Y" ]]; then
