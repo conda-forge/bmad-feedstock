@@ -1,0 +1,12 @@
+diff --git a/util/Distribution_User_Utility_Wrapper b/util/Distribution_User_Utility_Wrapper
+index 2efb427..c1300fd 100755
+--- a/util/Distribution_User_Utility_Wrapper
++++ b/util/Distribution_User_Utility_Wrapper
+@@ -23,7 +23,6 @@ if ( [[ "${CONDA_BUILD}" ]] ) ; then
+ 
+     # List of Project Directories - Order here matters!
+     DIRLIST=( forest sim_utils bmad tao cpp_bmad_interface bsim util_programs lux )
+-    [ "${ACC_PLOT_PACKAGE}" == "plplot" ] && DIRLIST=( plplot ${DIRLIST[*]} )
+ else
+     # List of Project Directories - Order here matters!
+     DIRLIST=()

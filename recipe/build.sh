@@ -70,6 +70,8 @@ if [[ "${CONDA_BUILD_CROSS_COMPILATION:-0}" == "1" ]]; then
   export OPAL_PREFIX=$PREFIX
 fi
 
+# Do not build plplot on any platform; rely on the conda-forge build.
+patch -p1 < "${RECIPE_DIR}/skip-plot-build.patch"
 
 # build production if BUILD_PRODUCTION is set to Y
 if [[ "$BUILD_PRODUCTION" == "Y" ]]; then
