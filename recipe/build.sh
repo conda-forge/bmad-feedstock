@@ -14,7 +14,7 @@ if [[ "$mpi" != "nompi" ]]; then
 
   cat <<EOF >> util/dist_prefs
 export DIST_F90_REQUEST="gfortran"
-export ACC_PLOT_PACKAGE="plplot"
+export ACC_PLOT_PACKAGE="pgplot"
 export ACC_PLOT_DISPLAY_TYPE="X"
 export ACC_ENABLE_OPENMP="Y"
 export ACC_ENABLE_MPI="Y"
@@ -35,7 +35,7 @@ else
 
   cat <<EOF >> util/dist_prefs
 export DIST_F90_REQUEST="gfortran"
-export ACC_PLOT_PACKAGE="plplot"
+export ACC_PLOT_PACKAGE="pgplot"
 export ACC_PLOT_DISPLAY_TYPE="X"
 export ACC_ENABLE_OPENMP="Y"
 export ACC_ENABLE_MPI="N"
@@ -70,11 +70,12 @@ if [[ "${CONDA_BUILD_CROSS_COMPILATION:-0}" == "1" ]]; then
   export OPAL_PREFIX=$PREFIX
 fi
 
-# Do not build plplot on any platform; rely on the conda-forge build.
-patch -p1 < "${RECIPE_DIR}/skip-plot-build.patch"
+# Commenting out the lines below from the test with PLPlot done at https://github.com/conda-forge/bmad-feedstock/pull/333
+# # Do not build plplot on any platform; rely on the conda-forge build.
+# patch -p1 < "${RECIPE_DIR}/skip-plot-build.patch"
 
-# Hack: copy in plplot fortran modules
-cp "$PREFIX/lib/fortran/modules/plplot"/*.mod "$PREFIX/include"
+# # Hack: copy in plplot fortran modules
+# cp "$PREFIX/lib/fortran/modules/plplot"/*.mod "$PREFIX/include"
 
 # build production if BUILD_PRODUCTION is set to Y
 if [[ "$BUILD_PRODUCTION" == "Y" ]]; then
