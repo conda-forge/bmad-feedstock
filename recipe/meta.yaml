@@ -1,5 +1,5 @@
 {% set name = "bmad" %}
-{% set version = "20240213-0" %}
+{% set version = "20240213-1" %}
 
 {% set build = 0 %}
 # ensure mpi is defined (needed for conda-smithy recipe-lint)
@@ -16,7 +16,7 @@ package:
 
 source:
   url: https://github.com/bmad-sim/bmad-ecosystem/releases/download/{{ version }}/bmad_dist.tar.gz
-  sha256: 848e30821b9ee3b19d0f30285820cd00630c9935b4bd7373dec2696ce8d8b1b7
+  sha256: a01023133c74daed42c06fb8c26a11b92f8d714a4c5802cc2fce2b5f22b3093d
 
 build:
   number: {{ build }}
