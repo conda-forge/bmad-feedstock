@@ -1,5 +1,5 @@
 MACOSX_DEPLOYMENT_TARGET:
-- '10.9'
+- '10.13'
 build_type:
 - debug
 c_compiler:
@@ -9,7 +9,7 @@ c_compiler_version:
 c_stdlib:
 - macosx_deployment_target
 c_stdlib_version:
-- '10.9'
+- '10.13'
 cairo:
 - '1'
 channel_sources:
@@ -28,7 +28,7 @@ fortran_compiler_version:
 - '12'
 hdf5:
 - 1.14.3
-libblas:
+libcblas:
 - 3.9 *netlib
 liblapack:
 - 3.9 *netlib
