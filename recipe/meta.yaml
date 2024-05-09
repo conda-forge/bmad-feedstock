@@ -1,7 +1,7 @@
 {% set name = "bmad" %}
 {% set version = "20240504-5" %}
 
-{% set build = 1 %}
+{% set build = 2 %}
 # ensure mpi is defined (needed for conda-smithy recipe-lint)
 {% set mpi = mpi or 'nompi' %}
 
@@ -80,7 +80,7 @@ requirements:
     - libcblas
     - liblapack
     - lapack95
-    - gsl ==2.6
+    - gsl
     - fgsl
     - xraylib
     - {{ mpi }}  # [mpi != 'nompi']
