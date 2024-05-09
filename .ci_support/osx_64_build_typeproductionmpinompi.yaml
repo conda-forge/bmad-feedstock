@@ -30,7 +30,7 @@ gsl:
 - '2.7'
 hdf5:
 - 1.14.3
-libblas:
+libcblas:
 - 3.9 *netlib
 liblapack:
 - 3.9 *netlib
