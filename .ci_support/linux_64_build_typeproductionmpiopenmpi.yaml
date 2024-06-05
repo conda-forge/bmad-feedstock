@@ -43,7 +43,7 @@ mpich:
 ncurses:
 - '6'
 openmpi:
-- '4'
+- '5'
 pango:
 - '1.50'
 readline:
