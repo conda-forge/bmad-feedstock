@@ -45,7 +45,7 @@ ncurses:
 openmpi:
 - '5'
 pango:
-- '1.50'
+- '1'
 readline:
 - '8'
 target_platform:
