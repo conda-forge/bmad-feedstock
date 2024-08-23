@@ -11,17 +11,7 @@ Summary: Bmad is an object oriented, open source, subroutine library for relativ
 
 Documentation: https://www.classe.cornell.edu/bmad/manual.html
 
-Bmad has been developed at Cornell University's Laboratory for Elementary
-Particle Physics and has been in use since the mid 1990s.
-Bmad has a wide range of routines to do many things.
-Bmad can be used to study both single and multi-particle
-beam dynamics. It has routines to track both particles and
-macroparticles. Bmad has various tracking algorithms including
-Runge-Kutta and symplectic (Lie algebraic) integration.
-Wakefields, and radiation excitation and damping can be simulated.
-Bmad has routines for calculating transfer matrices, emittances,
-Twiss parameters, dispersion, coupling, etc.
-
+Bmad has been developed at Cornell University's Laboratory for Elementary Particle Physics and has been in use since the mid 1990s. Bmad has a wide range of routines to do many things. Bmad can be used to study both single and multi-particle beam dynamics. It has routines to track both particles and macroparticles. Bmad has various tracking algorithms including Runge-Kutta and symplectic (Lie algebraic) integration. Wakefields, and radiation excitation and damping can be simulated. Bmad has routines for calculating transfer matrices, emittances, Twiss parameters, dispersion, coupling, etc.
 
 Current build status
 ====================
@@ -138,6 +128,7 @@ Current release info
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-bmad-green.svg)](https://anaconda.org/conda-forge/bmad) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/bmad.svg)](https://anaconda.org/conda-forge/bmad) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/bmad.svg)](https://anaconda.org/conda-forge/bmad) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/bmad.svg)](https://anaconda.org/conda-forge/bmad) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-bmad--doc-green.svg)](https://anaconda.org/conda-forge/bmad-doc) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/bmad-doc.svg)](https://anaconda.org/conda-forge/bmad-doc) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/bmad-doc.svg)](https://anaconda.org/conda-forge/bmad-doc) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/bmad-doc.svg)](https://anaconda.org/conda-forge/bmad-doc) |
 
 Installing bmad
 ===============
@@ -149,16 +140,16 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `bmad` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `bmad, bmad-doc` can be installed with `conda`:
 
 ```
-conda install bmad
+conda install bmad bmad-doc
 ```
 
 or with `mamba`:
 
 ```
-mamba install bmad
+mamba install bmad bmad-doc
 ```
 
 It is possible to list all of the versions of `bmad` available on your platform with `conda`:
