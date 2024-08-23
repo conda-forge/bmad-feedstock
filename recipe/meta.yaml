@@ -1,7 +1,7 @@
 {% set name = "bmad" %}
 {% set version = "20240818-0" %}
 
-{% set build = 0 %}
+{% set build = 1 %}
 # ensure mpi is defined (needed for conda-smithy recipe-lint)
 {% set mpi = mpi or 'nompi' %}
 
@@ -20,80 +20,126 @@ source:
 
 build:
   number: {{ build }}
-  skip: true  # [win]
 
-  # add build string so packages can depend on
-  # mpi or nompi variants explicitly:
-  # `pkg * mpi_mpich_*` for mpich
-  # `pkg * mpi_*` for any mpi
-  # `pkg * nompi_*` for no mpi
+{% set desc = "Bmad has been developed at Cornell University's Laboratory for Elementary "
+              "Particle Physics and has been in use since the mid 1990s. "
+              "Bmad has a wide range of routines to do many things. "
+              "Bmad can be used to study both single and multi-particle "
+              "beam dynamics. It has routines to track both particles and "
+              "macroparticles. Bmad has various tracking algorithms including "
+              "Runge-Kutta and symplectic (Lie algebraic) integration. "
+              "Wakefields, and radiation excitation and damping can be simulated. "
+              "Bmad has routines for calculating transfer matrices, emittances, "
+              "Twiss parameters, dispersion, coupling, etc. "
+%}
 
-  {% if build_type == "debug" %}
-  {% set debug = "_debug" %}
-  {% else %}
-  {% set debug = "" %}
-  {% endif %}
 
-  {% if mpi != 'nompi' %}
-  {% set mpi_prefix = "mpi_" + mpi %}
-  {% else %}
-  {% set mpi_prefix = "nompi" %}
-  {% endif %}
+outputs:
+  - name: bmad
+    build:
+      skip: true  # [win]
 
-  string: {{ mpi_prefix }}{{ debug }}_h{{ PKG_HASH }}_{{ build }}
+      # add build string so packages can depend on
+      # mpi or nompi variants explicitly:
+      # `pkg * mpi_mpich_*` for mpich
+      # `pkg * mpi_*` for any mpi
+      # `pkg * nompi_*` for no mpi
 
-  {% if mpi != 'nompi' %}
-  run_exports:
-    - {{ name }} * {{ mpi_prefix }}{{ debug }}_*
-  {% endif %}
+      {% if build_type == "debug" %}
+      {% set debug = "_debug" %}
+      {% else %}
+      {% set debug = "" %}
+      {% endif %}
 
-requirements:
-  build:
-    - {{ compiler('c') }}
-    - {{ stdlib("c") }}
-    - {{ compiler('cxx') }}
-    - {{ compiler('fortran') }}
-    - cmake
-    - make
-    - automake
-    - autoconf
-    - gnuconfig   # [unix]
-    - libtool
-    - m4
-    - pkg-config
-    - llvm-openmp  # [osx]
-    - libgomp      # [linux]
-    - openmpi  # [mpi == "openmpi" and (build_platform != target_platform)]
-    - python
-  host:
-    - readline
-    - ncurses
-    - cairo
-    - pango
-    - xorg-libxt
-    - pgplot
-    - hdf5
-    - xorg-libx11
-    - xorg-xproto
-    - fftw
-    - libopenblas
-    - libcblas
-    - liblapack
-    - lapack95
-    - gsl
-    - fgsl
-    - xraylib
-    - {{ mpi }}  # [mpi != 'nompi']
-  run:
-    - pgplot
-    - lapack95
-    - fgsl
-    - xorg-xproto
-    - {{ mpi }}  # [mpi != 'nompi']
+      {% if mpi != 'nompi' %}
+      {% set mpi_prefix = "mpi_" + mpi %}
+      {% else %}
+      {% set mpi_prefix = "nompi" %}
+      {% endif %}
 
-test:
-  commands:
-    - tao -help  # [build_platform == target_platform]
+      string: {{ mpi_prefix }}{{ debug }}_h{{ PKG_HASH }}_{{ build }}
+
+      {% if mpi != 'nompi' %}
+      run_exports:
+        - {{ name }} * {{ mpi_prefix }}{{ debug }}_*
+      {% endif %}
+
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ stdlib("c") }}
+        - {{ compiler('cxx') }}
+        - {{ compiler('fortran') }}
+        - cmake
+        - make
+        - automake
+        - autoconf
+        - gnuconfig   # [unix]
+        - libtool
+        - m4
+        - pkg-config
+        - llvm-openmp  # [osx]
+        - libgomp      # [linux]
+        - openmpi  # [mpi == "openmpi" and (build_platform != target_platform)]
+        - python
+      host:
+        - readline
+        - ncurses
+        - cairo
+        - pango
+        - xorg-libxt
+        - pgplot
+        - hdf5
+        - xorg-libx11
+        - xorg-xproto
+        - fftw
+        - libopenblas
+        - libcblas
+        - liblapack
+        - lapack95
+        - gsl
+        - fgsl
+        - xraylib
+        - {{ mpi }}  # [mpi != 'nompi']
+      run:
+        - pgplot
+        - lapack95
+        - fgsl
+        - xorg-xproto
+        - {{ mpi }}  # [mpi != 'nompi']
+
+    test:
+      commands:
+        - tao -help  # [build_platform == target_platform]
+    about:
+      home: https://www.classe.cornell.edu/bmad
+      license: GPL-3.0-or-later
+      license_family: GPL
+      license_file: bmad/Copyright
+      summary: Bmad is an object oriented, open source, subroutine library for relativistic charged-particle dynamics simulations in accelerators and storage rings.
+      description: {{ desc }}
+      doc_url: https://www.classe.cornell.edu/bmad/manual.html
+
+  - name: bmad-doc
+    script: bmad-doc_build.sh
+    files:
+      - $PREFIX/share/bmad
+    test:
+      commands:
+        - test -d $PREFIX/share/bmad/bmad-doc  # [unix]
+        - test -d $PREFIX/share/bmad/regression_tests  # [unix]
+        - test -d $PREFIX/share/bmad/code_examples  # [unix]
+        - test -d $PREFIX/share/bmad/tao/doc  # [unix]
+        - test -d $PREFIX/share/bmad/bmad/doc  # [unix]
+
+    about:
+      home: https://www.classe.cornell.edu/bmad
+      license: GPL-3.0-or-later
+      license_family: GPL
+      license_file: bmad/Copyright
+      summary: Bmad is an object oriented, open source, subroutine library for relativistic charged-particle dynamics simulations in accelerators and storage rings.
+      description: {{ desc }}
+      doc_url: https://www.classe.cornell.edu/bmad/manual.html
 
 about:
   home: https://www.classe.cornell.edu/bmad
@@ -101,17 +147,7 @@ about:
   license_family: GPL
   license_file: bmad/Copyright
   summary: Bmad is an object oriented, open source, subroutine library for relativistic charged-particle dynamics simulations in accelerators and storage rings.
-  description: |
-    Bmad has been developed at Cornell University's Laboratory for Elementary
-    Particle Physics and has been in use since the mid 1990s.
-    Bmad has a wide range of routines to do many things.
-    Bmad can be used to study both single and multi-particle
-    beam dynamics. It has routines to track both particles and
-    macroparticles. Bmad has various tracking algorithms including
-    Runge-Kutta and symplectic (Lie algebraic) integration.
-    Wakefields, and radiation excitation and damping can be simulated.
-    Bmad has routines for calculating transfer matrices, emittances,
-    Twiss parameters, dispersion, coupling, etc.
+  description: {{ desc }}
   doc_url: https://www.classe.cornell.edu/bmad/manual.html
 
 extra:
