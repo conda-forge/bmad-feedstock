@@ -99,10 +99,10 @@ outputs:
   - name: bmad-doc
     build:
       noarch: python
+      script: bmad-doc_build.sh
     requirements:
       host:
         - python
-    script: bmad-doc_build.sh
     files:
       - $PREFIX/share/bmad
     test:
