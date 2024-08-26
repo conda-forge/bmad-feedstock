@@ -11,7 +11,15 @@ Summary: Bmad is an object oriented, open source, subroutine library for relativ
 
 Documentation: https://www.classe.cornell.edu/bmad/manual.html
 
-Bmad has been developed at Cornell University's Laboratory for Elementary Particle Physics and has been in use since the mid 1990s. Bmad has a wide range of routines to do many things. Bmad can be used to study both single and multi-particle beam dynamics. It has routines to track both particles and macroparticles. Bmad has various tracking algorithms including Runge-Kutta and symplectic (Lie algebraic) integration. Wakefields, and radiation excitation and damping can be simulated. Bmad has routines for calculating transfer matrices, emittances, Twiss parameters, dispersion, coupling, etc.
+Bmad has been developed at Cornell University's Laboratory for
+Elementary Particle Physics and has been in use since the mid 1990s. Bmad has a
+wide range of routines to do many things. Bmad can be used to study both single
+and multi-particle beam dynamics. It has routines to track both particles and
+macroparticles. Bmad has various tracking algorithms including Runge-Kutta and
+symplectic (Lie algebraic) integration. Wakefields, and radiation excitation
+and damping can be simulated. Bmad has routines for calculating transfer
+matrices, emittances, Twiss parameters, dispersion, coupling, etc.
+
 
 Current build status
 ====================
