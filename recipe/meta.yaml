@@ -25,6 +25,7 @@ outputs:
   - name: bmad
     build:
       skip: true  # [win]
+      script: bmad_build.sh
 
       # add build string so packages can depend on
       # mpi or nompi variants explicitly:
