@@ -23,9 +23,9 @@ build:
 
 outputs:
   - name: bmad
+    script: bmad_build.sh
     build:
       skip: true  # [win]
-      script: bmad_build.sh
 
       # add build string so packages can depend on
       # mpi or nompi variants explicitly:
@@ -98,9 +98,9 @@ outputs:
       commands:
         - tao -help  # [build_platform == target_platform]
   - name: bmad-doc
+    script: bmad-doc_build.sh
     build:
       noarch: python
-      script: bmad-doc_build.sh
     requirements:
       host:
         - python
