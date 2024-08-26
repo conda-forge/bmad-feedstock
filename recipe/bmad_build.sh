@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+ls -lh /dev/stdout
+echo "testing" >/dev/stdout || {
+  echo "Failed to write to stdout... ?"
+  env
+}
+
 BUILD_PRODUCTION="Y"
 ARTIFACT_FOLDER="production"
 
