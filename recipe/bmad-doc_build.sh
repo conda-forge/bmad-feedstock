@@ -26,6 +26,6 @@ done
 
 echo
 echo "Final list of docs:"
-find -type f "$SHARE"
+find "$SHARE" -type f
 echo "Directory skeleton:"
-find -type d "$SHARE"
+find "$SHARE" -type d
