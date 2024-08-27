@@ -2,17 +2,19 @@
 
 set -x
 
-mkdir -p share
+SHARE=share/bmad
 
-cp -R ./bmad-doc share
-cp -R ./regression_tests share
-cp -R ./code_examples share
+mkdir -p "$SHARE"
 
-mkdir -p share/tao
-cp -R ./tao/doc share/tao/
+cp -R ./bmad-doc "$SHARE"
+cp -R ./regression_tests "$SHARE"
+cp -R ./code_examples "$SHARE"
 
-mkdir -p share/bmad
-cp -R ./bmad/doc share/bmad/
+mkdir -p "$SHARE"/tao
+cp -R ./tao/doc "$SHARE"/tao/
+
+mkdir -p "$SHARE"/bmad
+cp -R ./bmad/doc "$SHARE"/bmad/
 
 # Copy the [de]activate scripts to $PREFIX/etc/conda/[de]activate.d,
 # causing them to be sourced when an environment with bmad-doc is
@@ -24,4 +26,4 @@ done
 
 echo
 echo "Directory skeleton:"
-find share -type d
+find "$SHARE" -type d | sed -e "s#$PREFIX#PREFIX#"

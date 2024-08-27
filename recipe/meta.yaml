@@ -33,7 +33,6 @@ outputs:
       - share/bmad
     test:
       commands:
-        - find $PREFIX/share -type d  # [unix]
         - test -d $PREFIX/share/bmad  # [unix]
         - test -d $PREFIX/share/bmad/bmad-doc  # [unix]
         - test -d $PREFIX/share/bmad/regression_tests  # [unix]
