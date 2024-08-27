@@ -25,7 +25,5 @@ for CHANGE in "activate" "deactivate"; do
 done
 
 echo
-echo "Final list of docs:"
-find "$SHARE" -type f
 echo "Directory skeleton:"
-find "$SHARE" -type d
+find "$SHARE" -type d | sed -e "s#$PREFIX#PREFIX#"
