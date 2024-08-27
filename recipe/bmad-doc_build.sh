@@ -26,4 +26,5 @@ done
 
 echo
 echo "Directory skeleton:"
+cp -R "$SHARE"/ "$PREFIX"/share
 find "$SHARE" -type d | sed -e "s#$PREFIX#PREFIX#"

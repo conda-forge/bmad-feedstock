@@ -25,10 +25,10 @@ outputs:
   - name: bmad-doc
     script: bmad-doc_build.sh
     build:
-      noarch: python
-    requirements:
-      host:
-        - python
+      noarch: generic
+    # requirements:
+    #   host:
+    #     - python
     files:
       - share/bmad
     test:
