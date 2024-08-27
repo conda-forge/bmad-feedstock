@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -x
+
 mkdir -p "$PREFIX"/share/bmad/
 
 cp -R ./bmad-doc "$PREFIX"/share/bmad/
