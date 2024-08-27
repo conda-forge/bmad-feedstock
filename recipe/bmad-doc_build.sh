@@ -24,4 +24,4 @@ done
 
 echo
 echo "Directory skeleton:"
-find share -type d | sed -e "s#$PREFIX#PREFIX#"
+find share -type d
