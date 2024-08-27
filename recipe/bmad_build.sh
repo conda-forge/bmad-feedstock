@@ -1,10 +1,16 @@
 #!/usr/bin/env bash
 
-ls -lh /dev/stdout
-echo "testing" >/dev/stdout || {
-  echo "Failed to write to stdout... ?"
-  env
-}
+# NOTE: after switching to multiple outputs in the build recipe, we now run into this:
+#  **** Invoking dist_source_me
+#  util/dist_source_me: line 487: /dev/stdout: Permission denied
+# So we patch that script to avoid writing to /dev/stdout directly.
+# TODO: determine why the invocation is any different from single- to multi-output recipe.
+# Under `tini`, /dev/stdout remains off-limits to the `conda` user, so both scenarios
+# should fail. However, in the single-output recipe scenario, those errors appear to be
+# ignored (bash set +e?) whereas the first failure causes the build script to bail in
+# multi-output recipes.
+sed -i -e "s/.dev.stdout/source_me_log/g" util/dist_source_me
+sed -i -e "s/DIST_SETUP_QUIET=.Y./DIST_SETUP_QUIET=N/g" util/dist_source_me
 
 BUILD_PRODUCTION="Y"
 ARTIFACT_FOLDER="production"
