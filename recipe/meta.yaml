@@ -30,7 +30,7 @@ outputs:
       host:
         - python
     files:
-      - $PREFIX/share/bmad
+      - share
     test:
       commands:
         - find $PREFIX/share -type d  # [unix]
