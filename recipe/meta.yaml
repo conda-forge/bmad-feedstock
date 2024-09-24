@@ -76,9 +76,7 @@ requirements:
     - xorg-libx11
     - xorg-xproto
     - fftw
-    - libopenblas 0.3.27  # [osx]
-    - libopenblas         # [linux]
-    - libcblas
+    - openblas
     - liblapack
     - lapack95
     - gsl
@@ -86,6 +84,8 @@ requirements:
     - xraylib
     - {{ mpi }}  # [mpi != 'nompi']
   run:
+    - libblas * *openblas
+    - openblas
     - pgplot
     - lapack95
     - fgsl
@@ -93,8 +93,13 @@ requirements:
     - {{ mpi }}  # [mpi != 'nompi']
 
 test:
+  source_files:
+    - bmad-doc
+  requires:
+    - pytao
   commands:
     - tao -help  # [build_platform == target_platform]
+    - python -c 'import pytao; pytao.Tao(init_file="$PWD/bmad-doc/tao_examples/cbeta_cell/tao.init")'  # [build_platform == target_platform]
 
 about:
   home: https://www.classe.cornell.edu/bmad
