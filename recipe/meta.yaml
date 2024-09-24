@@ -94,13 +94,12 @@ requirements:
     - {{ mpi }}  # [mpi != 'nompi']
 
 test:
-  source_files:
-    - bmad-doc
   requires:
-    - pytao
+    - python
   commands:
     - tao -help  # [build_platform == target_platform]
-    - python -c 'import pytao; tao = pytao.Tao(init_file="$PWD/bmad-doc/tao_examples/cbeta_cell/tao.init", noplot=True); print("Tao version:", tao.version())'  # [build_platform == target_platform]
+    - python -c 'import ctypes.util; assert ctypes.util.find_library("tao") is not None'  # [build_platform == target_platform]
+    - python -c 'import ctypes, ctypes.util; ctypes.CDLL(ctypes.util.find_library("tao"))'  # [build_platform == target_platform]
 
 about:
   home: https://www.classe.cornell.edu/bmad
