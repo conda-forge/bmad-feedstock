@@ -99,7 +99,7 @@ test:
     - pytao
   commands:
     - tao -help  # [build_platform == target_platform]
-    - python -c 'import pytao; pytao.Tao(init_file="$PWD/bmad-doc/tao_examples/cbeta_cell/tao.init")'  # [build_platform == target_platform]
+    - python -c 'import pytao; tao = pytao.Tao(init_file="$PWD/bmad-doc/tao_examples/cbeta_cell/tao.init"); print(tao.version())'  # [build_platform == target_platform]
 
 about:
   home: https://www.classe.cornell.edu/bmad
