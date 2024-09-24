@@ -42,6 +42,8 @@ mpich:
 - '4'
 ncurses:
 - '6'
+openblas:
+- 0.3.*
 openmpi:
 - '5'
 pango:

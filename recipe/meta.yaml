@@ -1,7 +1,7 @@
 {% set name = "bmad" %}
 {% set version = "20240923-0" %}
 
-{% set build = 0 %}
+{% set build = 1 %}
 # ensure mpi is defined (needed for conda-smithy recipe-lint)
 {% set mpi = mpi or 'nompi' %}
 
@@ -76,7 +76,7 @@ requirements:
     - xorg-libx11
     - xorg-xproto
     - fftw
-    - libopenblas
+    - openblas
     - libcblas
     - liblapack
     - lapack95
@@ -85,6 +85,8 @@ requirements:
     - xraylib
     - {{ mpi }}  # [mpi != 'nompi']
   run:
+    - libblas * *openblas
+    - openblas
     - pgplot
     - lapack95
     - fgsl
@@ -92,8 +94,12 @@ requirements:
     - {{ mpi }}  # [mpi != 'nompi']
 
 test:
+  requires:
+    - python
   commands:
     - tao -help  # [build_platform == target_platform]
+    - python -c 'import ctypes.util; assert ctypes.util.find_library("tao") is not None'  # [build_platform == target_platform]
+    - python -c 'import ctypes, ctypes.util; ctypes.CDLL(ctypes.util.find_library("tao"))'  # [build_platform == target_platform]
 
 about:
   home: https://www.classe.cornell.edu/bmad
