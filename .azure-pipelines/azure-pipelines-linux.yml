@@ -8,20 +8,36 @@ jobs:
     vmImage: ubuntu-latest
   strategy:
     matrix:
-      linux_64_build_typedebugmpinompi:
-        CONFIG: linux_64_build_typedebugmpinompi
+      linux_64_build_typedebughdf51.14.3mpinompi:
+        CONFIG: linux_64_build_typedebughdf51.14.3mpinompi
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-      linux_64_build_typedebugmpiopenmpi:
-        CONFIG: linux_64_build_typedebugmpiopenmpi
+      linux_64_build_typedebughdf51.14.3mpiopenmpi:
+        CONFIG: linux_64_build_typedebughdf51.14.3mpiopenmpi
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-      linux_64_build_typeproductionmpinompi:
-        CONFIG: linux_64_build_typeproductionmpinompi
+      linux_64_build_typedebughdf51.14.4mpinompi:
+        CONFIG: linux_64_build_typedebughdf51.14.4mpinompi
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-      linux_64_build_typeproductionmpiopenmpi:
-        CONFIG: linux_64_build_typeproductionmpiopenmpi
+      linux_64_build_typedebughdf51.14.4mpiopenmpi:
+        CONFIG: linux_64_build_typedebughdf51.14.4mpiopenmpi
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+      linux_64_build_typeproductionhdf51.14.3mpinompi:
+        CONFIG: linux_64_build_typeproductionhdf51.14.3mpinompi
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+      linux_64_build_typeproductionhdf51.14.3mpiopenmpi:
+        CONFIG: linux_64_build_typeproductionhdf51.14.3mpiopenmpi
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+      linux_64_build_typeproductionhdf51.14.4mpinompi:
+        CONFIG: linux_64_build_typeproductionhdf51.14.4mpinompi
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+      linux_64_build_typeproductionhdf51.14.4mpiopenmpi:
+        CONFIG: linux_64_build_typeproductionhdf51.14.4mpiopenmpi
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
   timeoutInMinutes: 360

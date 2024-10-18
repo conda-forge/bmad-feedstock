@@ -41,87 +41,171 @@ Current build status
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
           <tbody><tr>
-              <td>linux_64_build_typedebugmpinompi</td>
+              <td>linux_64_build_typedebughdf51.14.3mpinompi</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=12819&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_build_typedebugmpinompi" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_build_typedebughdf51.14.3mpinompi" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_64_build_typedebugmpiopenmpi</td>
+              <td>linux_64_build_typedebughdf51.14.3mpiopenmpi</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=12819&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_build_typedebugmpiopenmpi" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_build_typedebughdf51.14.3mpiopenmpi" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_64_build_typeproductionmpinompi</td>
+              <td>linux_64_build_typedebughdf51.14.4mpinompi</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=12819&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_build_typeproductionmpinompi" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_build_typedebughdf51.14.4mpinompi" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_64_build_typeproductionmpiopenmpi</td>
+              <td>linux_64_build_typedebughdf51.14.4mpiopenmpi</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=12819&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_build_typeproductionmpiopenmpi" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_build_typedebughdf51.14.4mpiopenmpi" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>osx_64_build_typedebugmpinompi</td>
+              <td>linux_64_build_typeproductionhdf51.14.3mpinompi</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=12819&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_build_typedebugmpinompi" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_build_typeproductionhdf51.14.3mpinompi" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>osx_64_build_typedebugmpiopenmpi</td>
+              <td>linux_64_build_typeproductionhdf51.14.3mpiopenmpi</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=12819&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_build_typedebugmpiopenmpi" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_build_typeproductionhdf51.14.3mpiopenmpi" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>osx_64_build_typeproductionmpinompi</td>
+              <td>linux_64_build_typeproductionhdf51.14.4mpinompi</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=12819&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_build_typeproductionmpinompi" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_build_typeproductionhdf51.14.4mpinompi" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>osx_64_build_typeproductionmpiopenmpi</td>
+              <td>linux_64_build_typeproductionhdf51.14.4mpiopenmpi</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=12819&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_build_typeproductionmpiopenmpi" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_build_typeproductionhdf51.14.4mpiopenmpi" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>osx_arm64_build_typedebugmpinompi</td>
+              <td>osx_64_build_typedebughdf51.14.3mpinompi</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=12819&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_build_typedebugmpinompi" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_build_typedebughdf51.14.3mpinompi" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>osx_arm64_build_typedebugmpiopenmpi</td>
+              <td>osx_64_build_typedebughdf51.14.3mpiopenmpi</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=12819&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_build_typedebugmpiopenmpi" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_build_typedebughdf51.14.3mpiopenmpi" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>osx_arm64_build_typeproductionmpinompi</td>
+              <td>osx_64_build_typedebughdf51.14.4mpinompi</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=12819&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_build_typeproductionmpinompi" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_build_typedebughdf51.14.4mpinompi" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>osx_arm64_build_typeproductionmpiopenmpi</td>
+              <td>osx_64_build_typedebughdf51.14.4mpiopenmpi</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=12819&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_build_typeproductionmpiopenmpi" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_build_typedebughdf51.14.4mpiopenmpi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_64_build_typeproductionhdf51.14.3mpinompi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=12819&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_build_typeproductionhdf51.14.3mpinompi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_64_build_typeproductionhdf51.14.3mpiopenmpi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=12819&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_build_typeproductionhdf51.14.3mpiopenmpi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_64_build_typeproductionhdf51.14.4mpinompi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=12819&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_build_typeproductionhdf51.14.4mpinompi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_64_build_typeproductionhdf51.14.4mpiopenmpi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=12819&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_build_typeproductionhdf51.14.4mpiopenmpi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_arm64_build_typedebughdf51.14.3mpinompi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=12819&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_build_typedebughdf51.14.3mpinompi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_arm64_build_typedebughdf51.14.3mpiopenmpi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=12819&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_build_typedebughdf51.14.3mpiopenmpi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_arm64_build_typedebughdf51.14.4mpinompi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=12819&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_build_typedebughdf51.14.4mpinompi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_arm64_build_typedebughdf51.14.4mpiopenmpi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=12819&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_build_typedebughdf51.14.4mpiopenmpi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_arm64_build_typeproductionhdf51.14.3mpinompi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=12819&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_build_typeproductionhdf51.14.3mpinompi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_arm64_build_typeproductionhdf51.14.3mpiopenmpi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=12819&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_build_typeproductionhdf51.14.3mpiopenmpi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_arm64_build_typeproductionhdf51.14.4mpinompi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=12819&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_build_typeproductionhdf51.14.4mpinompi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_arm64_build_typeproductionhdf51.14.4mpiopenmpi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=12819&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/bmad-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_build_typeproductionhdf51.14.4mpiopenmpi" alt="variant">
                 </a>
               </td>
             </tr>
