@@ -8,29 +8,53 @@ jobs:
     vmImage: macOS-13
   strategy:
     matrix:
-      osx_64_build_typedebugmpinompi:
-        CONFIG: osx_64_build_typedebugmpinompi
+      osx_64_build_typedebughdf51.14.3mpinompi:
+        CONFIG: osx_64_build_typedebughdf51.14.3mpinompi
         UPLOAD_PACKAGES: 'True'
-      osx_64_build_typedebugmpiopenmpi:
-        CONFIG: osx_64_build_typedebugmpiopenmpi
+      osx_64_build_typedebughdf51.14.3mpiopenmpi:
+        CONFIG: osx_64_build_typedebughdf51.14.3mpiopenmpi
         UPLOAD_PACKAGES: 'True'
-      osx_64_build_typeproductionmpinompi:
-        CONFIG: osx_64_build_typeproductionmpinompi
+      osx_64_build_typedebughdf51.14.4mpinompi:
+        CONFIG: osx_64_build_typedebughdf51.14.4mpinompi
         UPLOAD_PACKAGES: 'True'
-      osx_64_build_typeproductionmpiopenmpi:
-        CONFIG: osx_64_build_typeproductionmpiopenmpi
+      osx_64_build_typedebughdf51.14.4mpiopenmpi:
+        CONFIG: osx_64_build_typedebughdf51.14.4mpiopenmpi
         UPLOAD_PACKAGES: 'True'
-      osx_arm64_build_typedebugmpinompi:
-        CONFIG: osx_arm64_build_typedebugmpinompi
+      osx_64_build_typeproductionhdf51.14.3mpinompi:
+        CONFIG: osx_64_build_typeproductionhdf51.14.3mpinompi
         UPLOAD_PACKAGES: 'True'
-      osx_arm64_build_typedebugmpiopenmpi:
-        CONFIG: osx_arm64_build_typedebugmpiopenmpi
+      osx_64_build_typeproductionhdf51.14.3mpiopenmpi:
+        CONFIG: osx_64_build_typeproductionhdf51.14.3mpiopenmpi
         UPLOAD_PACKAGES: 'True'
-      osx_arm64_build_typeproductionmpinompi:
-        CONFIG: osx_arm64_build_typeproductionmpinompi
+      osx_64_build_typeproductionhdf51.14.4mpinompi:
+        CONFIG: osx_64_build_typeproductionhdf51.14.4mpinompi
         UPLOAD_PACKAGES: 'True'
-      osx_arm64_build_typeproductionmpiopenmpi:
-        CONFIG: osx_arm64_build_typeproductionmpiopenmpi
+      osx_64_build_typeproductionhdf51.14.4mpiopenmpi:
+        CONFIG: osx_64_build_typeproductionhdf51.14.4mpiopenmpi
+        UPLOAD_PACKAGES: 'True'
+      osx_arm64_build_typedebughdf51.14.3mpinompi:
+        CONFIG: osx_arm64_build_typedebughdf51.14.3mpinompi
+        UPLOAD_PACKAGES: 'True'
+      osx_arm64_build_typedebughdf51.14.3mpiopenmpi:
+        CONFIG: osx_arm64_build_typedebughdf51.14.3mpiopenmpi
+        UPLOAD_PACKAGES: 'True'
+      osx_arm64_build_typedebughdf51.14.4mpinompi:
+        CONFIG: osx_arm64_build_typedebughdf51.14.4mpinompi
+        UPLOAD_PACKAGES: 'True'
+      osx_arm64_build_typedebughdf51.14.4mpiopenmpi:
+        CONFIG: osx_arm64_build_typedebughdf51.14.4mpiopenmpi
+        UPLOAD_PACKAGES: 'True'
+      osx_arm64_build_typeproductionhdf51.14.3mpinompi:
+        CONFIG: osx_arm64_build_typeproductionhdf51.14.3mpinompi
+        UPLOAD_PACKAGES: 'True'
+      osx_arm64_build_typeproductionhdf51.14.3mpiopenmpi:
+        CONFIG: osx_arm64_build_typeproductionhdf51.14.3mpiopenmpi
+        UPLOAD_PACKAGES: 'True'
+      osx_arm64_build_typeproductionhdf51.14.4mpinompi:
+        CONFIG: osx_arm64_build_typeproductionhdf51.14.4mpinompi
+        UPLOAD_PACKAGES: 'True'
+      osx_arm64_build_typeproductionhdf51.14.4mpiopenmpi:
+        CONFIG: osx_arm64_build_typeproductionhdf51.14.4mpiopenmpi
         UPLOAD_PACKAGES: 'True'
   timeoutInMinutes: 360
   variables: {}
