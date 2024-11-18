@@ -58,7 +58,6 @@ requirements:
     - automake
     - autoconf
     - gnuconfig   # [unix]
-    - libacl       # [linux]
     - libtool
     - m4
     - pkg-config
@@ -78,6 +77,7 @@ requirements:
     - xorg-xproto
     - fftw
     - openblas
+    - libacl       # [linux]
     - libcblas
     - liblapack
     - lapack95
