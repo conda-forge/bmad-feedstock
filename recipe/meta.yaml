@@ -58,6 +58,7 @@ requirements:
     - automake
     - autoconf
     - gnuconfig   # [unix]
+    - libacl       # [linux]
     - libtool
     - m4
     - pkg-config
