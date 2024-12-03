@@ -3,10 +3,20 @@
 BUILD_PRODUCTION="Y"
 ARTIFACT_FOLDER="production"
 
-if [[ "$build_type" != "production" ]]; then
-    BUILD_PRODUCTION="N"
-    ARTIFACT_FOLDER="debug"
-fi
+# ** DEBUG build removed.
+# To add it back, change conda_build_config.yaml
+# and add the following:
+#
+# build_type:
+#   - production
+#   - debug
+#
+# After adding it, uncomment the block below, make a Pull Request and rerender the recipe.
+
+# if [[ "$build_type" != "production" ]]; then
+#     BUILD_PRODUCTION="N"
+#     ARTIFACT_FOLDER="debug"
+# fi
 
 # MPI switches
 if [[ "$mpi" != "nompi" ]]; then
