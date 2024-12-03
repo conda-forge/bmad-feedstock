@@ -1,9 +1,7 @@
 MACOSX_DEPLOYMENT_TARGET:
-- '10.13'
+- '11.0'
 MACOSX_SDK_VERSION:
-- '10.13'
-build_type:
-- debug
+- '11.0'
 c_compiler:
 - clang
 c_compiler_version:
@@ -11,7 +9,7 @@ c_compiler_version:
 c_stdlib:
 - macosx_deployment_target
 c_stdlib_version:
-- '10.13'
+- '11.0'
 cairo:
 - '1'
 channel_sources:
@@ -39,9 +37,9 @@ liblapack:
 llvm_openmp:
 - '18'
 macos_machine:
-- x86_64-apple-darwin13.4.0
+- arm64-apple-darwin20.0.0
 mpi:
-- nompi
+- openmpi
 mpich:
 - '4'
 ncurses:
@@ -55,7 +53,7 @@ pango:
 readline:
 - '8'
 target_platform:
-- osx-64
+- osx-arm64
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
