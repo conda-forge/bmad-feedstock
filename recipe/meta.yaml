@@ -17,6 +17,8 @@ package:
 source:
   url: https://github.com/bmad-sim/bmad-ecosystem/releases/download/{{ version }}/bmad_dist.tar.gz
   sha256: 0ff429bb54aa6d33a9f4d6cbd7efc4d320c5350e421f01539faf69de2b5babc8
+  patches:
+    - patches/01-hdf5-hl-mac-fix.patch
 
 build:
   number: {{ build }}
