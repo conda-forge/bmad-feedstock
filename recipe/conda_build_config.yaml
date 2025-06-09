@@ -1,6 +1,6 @@
 mpi:
   - nompi
-  - openmpi  # [not win]
+  - openmpi # [not win]
 hdf5:
-  - 1.14.3
   - 1.14.4
+  - 1.14.6
