@@ -1,30 +1,12 @@
 diff --git a/util/Master.cmake b/util/Master.cmake
-index bde5f040f..522b59a36 100644
+index bde5f040f..7c1a56480 100644
 --- a/util/Master.cmake
 +++ b/util/Master.cmake
-@@ -495,15 +495,22 @@ SET (MASTER_INC_DIRS
- 
- # If we use system HDF5 libraries, search for include directories
- find_package(HDF5 COMPONENTS Fortran HL)
-+if (HDF5_FOUND)
-+  if(HDF5_hdf5_hl_fortran_LIBRARY MATCHES "-NOTFOUND$" AND HDF5_hdf5hl_fortran_LIBRARY)
-+    set(HDF5_hdf5_hl_fortran_LIBRARY ${HDF5_hdf5hl_fortran_LIBRARY})
-+    list(FILTER HDF5_Fortran_HL_LIBRARIES EXCLUDE REGEX "-NOTFOUND$")
-+    list(FILTER HDF5_Fortran_LIBRARIES EXCLUDE REGEX "-NOTFOUND$")
-+  elseif(HDF5_hdf5_hl_fortran_LIBRARY MATCHES "-NOTFOUND$" AND HDF5_hdf5hl_fortran_LIBRARY MATCHES "-NOTFOUND$")
-+    message(FATAL_ERROR "Neither HDF5_hdf5_hl_fortran_LIBRARY nor HDF5_hdf5hl_fortran_LIBRARY found")
-+  endif()
-+  set(SHARED_LINK_LIBS ${HDF5_Fortran_HL_LIBRARIES} ${HDF5_Fortran_LIBRARIES} ${SHARED_LINK_LIBS})
-+endif()
- foreach(h5dir ${HDF5_Fortran_INCLUDE_DIRS})
-   list(FIND CMAKE_Fortran_IMPLICIT_INCLUDE_DIRECTORIES "${h5dir}" h5found)
-   if (h5found EQUAL -1)
-     list(APPEND MASTER_INC_DIRS "${h5dir}")
-   endif()
+@@ -503,6 +503,7 @@ foreach(h5dir ${HDF5_Fortran_INCLUDE_DIRS})
  endforeach()
--if (HDF5_FOUND)
--  set(SHARED_LINK_LIBS ${HDF5_Fortran_HL_LIBRARIES} ${HDF5_Fortran_LIBRARIES} ${SHARED_LINK_LIBS})
--endif()
- 
+ if (HDF5_FOUND)
+   set(SHARED_LINK_LIBS ${HDF5_Fortran_HL_LIBRARIES} ${HDF5_Fortran_LIBRARIES} ${SHARED_LINK_LIBS})
++  list(FILTER SHARED_LINK_LIBS EXCLUDE REGEX "-NOTFOUND$")
+ endif()
+
  #------------------------------------------------------
- # Add local include paths to search list if they exist
