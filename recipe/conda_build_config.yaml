@@ -4,5 +4,3 @@ mpi:
 hdf5:
   - 1.14.4
   - 1.14.6
-fortran_compiler_version: # [osx and arm64]
-  - 13 # [osx and arm64]
