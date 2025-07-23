@@ -22,7 +22,7 @@ ARTIFACT_FOLDER="production"
 if [[ "$mpi" != "nompi" ]]; then
   echo "**** Setting up util/dist_prefs with MPI"
 
-  cat <<EOF >> util/dist_prefs
+  cat <<EOF >>util/dist_prefs
 export DIST_F90_REQUEST="gfortran"
 export ACC_PLOT_PACKAGE="pgplot"
 export ACC_PLOT_DISPLAY_TYPE="X"
@@ -43,7 +43,7 @@ EOF
 else
   echo "**** Setting up util/dist_prefs"
 
-  cat <<EOF >> util/dist_prefs
+  cat <<EOF >>util/dist_prefs
 export DIST_F90_REQUEST="gfortran"
 export ACC_PLOT_PACKAGE="pgplot"
 export ACC_PLOT_DISPLAY_TYPE="X"
@@ -90,7 +90,7 @@ fi
 # build production if BUILD_PRODUCTION is set to Y
 if [[ "$BUILD_PRODUCTION" == "Y" ]]; then
   echo "**** Invoking dist_build_production"
-  util/dist_build_production
+  util/dist_build_production || make -C forest/production VERBOSE=1
 else
   echo "**** Invoking dist_build_debug"
   util/dist_build_debug
@@ -149,11 +149,10 @@ ACTIVATE=$PREFIX/etc/conda/activate.d/bmad
 DEACTIVATE=$PREFIX/etc/conda/deactivate.d/bmad
 
 # Variable TAO_DIR is used by Tao to find auxiliary documentation files
-echo "export TAO_DIR=\$CONDA_PREFIX/share/doc/tao/" >> $ACTIVATE.sh
-echo "unset TAO_DIR" >> $DEACTIVATE.sh
+echo "export TAO_DIR=\$CONDA_PREFIX/share/doc/tao/" >>$ACTIVATE.sh
+echo "unset TAO_DIR" >>$DEACTIVATE.sh
 
 unset ACTIVATE
 unset DEACTIVATE
 
 echo "**** build.sh DONE"
-
