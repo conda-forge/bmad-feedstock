@@ -90,7 +90,11 @@ fi
 # build production if BUILD_PRODUCTION is set to Y
 if [[ "$BUILD_PRODUCTION" == "Y" ]]; then
   echo "**** Invoking dist_build_production"
-  util/dist_build_production || make -C forest/production VERBOSE=1
+  find . -iname a_scratch_size.f90
+  util/dist_build_production || {
+    make -C forest/production clean
+    make -C forest/production VERBOSE=1 || make -C forest/production -j VERBOSE=1
+  }
 else
   echo "**** Invoking dist_build_debug"
   util/dist_build_debug
