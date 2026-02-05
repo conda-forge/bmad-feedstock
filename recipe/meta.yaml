@@ -126,6 +126,7 @@ about:
 
 extra:
   recipe-maintainers:
+    - MichaelEhrlichman
     - hhslepicka
     - ChristopherMayes
     - ken-lauer
