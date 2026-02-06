@@ -254,6 +254,7 @@ Feedstock Maintainers
 =====================
 
 * [@ChristopherMayes](https://github.com/ChristopherMayes/)
+* [@MichaelEhrlichman](https://github.com/MichaelEhrlichman/)
 * [@hhslepicka](https://github.com/hhslepicka/)
 * [@ken-lauer](https://github.com/ken-lauer/)
 
