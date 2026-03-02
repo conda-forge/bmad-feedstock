@@ -1,5 +1,5 @@
 diff --git a/util/Master.cmake b/util/Master.cmake
-index 5bad843f7..d70ac51d7 100644
+index 5bad843f7..83ae67e05 100644
 --- a/util/Master.cmake
 +++ b/util/Master.cmake
 @@ -529,6 +529,47 @@ if (HDF5_FOUND)
@@ -31,7 +31,7 @@ index 5bad843f7..d70ac51d7 100644
 +      endif()
 +      if (NOT hl_loc AND prop)
 +        # The hdf5_hl_fortran target gets screwed up
-+        foreach(lib in HDF5_Fortran_HL_LIBRARIES)
++        foreach(lib ${HDF5_Fortran_HL_LIBRARIES})
 +          if(lib)
 +            message("lib=${lib}")
 +            if (lib MATCHES hl_fortran)
