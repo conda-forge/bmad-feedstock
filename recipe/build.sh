@@ -63,6 +63,8 @@ EOF
 
 fi
 
+ls -l "$PREFIX"/lib/*hdf5*
+
 echo "**** Invoking dist_source_me"
 source util/dist_source_me
 
