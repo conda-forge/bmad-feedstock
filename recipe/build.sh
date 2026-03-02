@@ -87,7 +87,7 @@ fi
 # # Hack: copy in plplot fortran modules
 # cp "$PREFIX/lib/fortran/modules/plplot"/*.mod "$PREFIX/include"
 
-patch -p1 "${RECIPE_DIR}/hdf5-debug.patch"
+patch -p1 -i "${RECIPE_DIR}/hdf5-debug.patch"
 export CMAKE_ARGS="$CMAKE_ARGS -DHDF5_FIND_DEBUG=ON"
 
 # build production if BUILD_PRODUCTION is set to Y
