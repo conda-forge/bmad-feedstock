@@ -1,8 +1,8 @@
 diff --git a/util/Master.cmake b/util/Master.cmake
-index 5bad843f7..f5bbfe822 100644
+index 5bad843f7..d70ac51d7 100644
 --- a/util/Master.cmake
 +++ b/util/Master.cmake
-@@ -529,6 +529,41 @@ if (HDF5_FOUND)
+@@ -529,6 +529,47 @@ if (HDF5_FOUND)
    endif()
    if (NOT DEFINED HDF5_TARGET)
      if(TARGET hdf5::hdf5_hl_fortran AND TARGET hdf5::hdf5_fortran)
@@ -32,6 +32,12 @@ index 5bad843f7..f5bbfe822 100644
 +      if (NOT hl_loc AND prop)
 +        # The hdf5_hl_fortran target gets screwed up
 +        foreach(lib in HDF5_Fortran_HL_LIBRARIES)
++          if(lib)
++            message("lib=${lib}")
++            if (lib MATCHES hl_fortran)
++              message("It matches!")
++            endif()
++          endif()
 +          if (NOT hl_loc AND lib AND lib MATCHES hl_fortran)
 +            set(hl_loc ${lib})
 +            set_target_property(hdf5::hdf5_hl_fortran ${prop} ${lib})
@@ -44,7 +50,7 @@ index 5bad843f7..f5bbfe822 100644
        set(HDF5_TARGET hdf5::hdf5_hl_fortran hdf5::hdf5_fortran)
      else()
        message(FATAL_ERROR "HDF5 Target not found")
-@@ -537,6 +572,52 @@ if (HDF5_FOUND)
+@@ -537,6 +578,52 @@ if (HDF5_FOUND)
  else()
    message(FATAL_ERROR "HDF5 Target not found")
  endif()
