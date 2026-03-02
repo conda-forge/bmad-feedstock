@@ -1,0 +1,57 @@
+diff --git a/util/Master.cmake b/util/Master.cmake
+index 5bad843f7..92976355c 100644
+--- a/util/Master.cmake
++++ b/util/Master.cmake
+@@ -513,6 +513,52 @@ SET (MASTER_INC_DIRS
+ 
+ # If we use system HDF5 libraries, search for include directories
+ find_package(HDF5 COMPONENTS Fortran HL)
++foreach(t hdf5_hl_fortran-shared hdf5_hl_fortran-static hdf5::hdf5_hl_fortran hdf5::hdf5_fortran)
++  message("Target: ${t}")
++  if(TARGET ${t})
++    foreach(p
++        INCLUDE
++        LOCATION
++        IMPORTED_IMPLIB
++        IMPORTED_LIBNAME
++        IMPORTED_LINK_DEPENDENT_LIBRARIES
++        IMPORTED_LINK_INTERFACE_LIBRARIES
++        IMPORTED_LOCATION
++        INTERFACE_COMPILE_DEFINITIONS
++        INTERFACE_INCLUDE_DIRECTORIES
++        INTERFACE_LINK_DEPENDS
++        INTERFACE_LINK_DIRECTORIES
++        INTERFACE_LINK_LIBRARIES
++        INTERFACE_SYSTEM_INCLUDE_DIRECTORIES)
++      get_property(v TARGET ${t} PROPERTY ${p} SET)
++      if (${v})
++        get_property(v TARGET ${t} PROPERTY ${p})
++        message("  ${p}=${v}")
++      endif()
++    endforeach()
++    get_property(v TARGET ${t} PROPERTY IMPORTED_CONFIGURATIONS SET)
++    if (${v})
++      get_property(configs TARGET ${t} PROPERTY IMPORTED_CONFIGURATIONS)
++      foreach(c ${configs})
++        foreach(p
++            IMPORTED_IMPLIB
++            IMPORTED_LIBNAME
++            IMPORTED_LINK_DEPENDENT_LIBRARIES
++            IMPORTED_LINK_INTERFACE_LIBRARIES
++            IMPORTED_LOCATION
++            LINK_INTERFACE_LIBRARIES
++            LOCATION
++          )
++          get_property(v TARGET ${t} PROPERTY ${p}_${c} SET)
++          if (${v})
++            get_property(v TARGET ${t} PROPERTY ${p}_${c})
++            message("  ${p}_${c}=${v}")
++          endif()
++        endforeach()
++      endforeach()
++    endif()
++  endif()
++endforeach()
+ if (HDF5_FOUND)
+   if(ENABLE_SHARED OR ENABLE_SHARED_ONLY)
+     if(TARGET hdf5_hl_fortran-shared)
