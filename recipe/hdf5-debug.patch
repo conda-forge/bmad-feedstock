@@ -1,5 +1,5 @@
 diff --git a/util/Master.cmake b/util/Master.cmake
-index 5bad843f7..b1efd3eac 100644
+index 5bad843f7..6234db106 100644
 --- a/util/Master.cmake
 +++ b/util/Master.cmake
 @@ -529,6 +529,47 @@ if (HDF5_FOUND)
@@ -40,7 +40,7 @@ index 5bad843f7..b1efd3eac 100644
 +          endif()
 +          if (NOT hl_loc AND lib AND lib MATCHES hl_fortran)
 +            set(hl_loc ${lib})
-+            set_target_properties(hdf5::hdf5_hl_fortran ${prop} ${lib})
++            set_target_properties(hdf5::hdf5_hl_fortran PROPERTIES ${prop} ${lib})
 +          endif()
 +        endforeach()
 +      endif()
