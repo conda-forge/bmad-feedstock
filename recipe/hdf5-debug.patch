@@ -1,0 +1,105 @@
+diff --git a/util/Master.cmake b/util/Master.cmake
+index 5bad843f7..6234db106 100644
+--- a/util/Master.cmake
++++ b/util/Master.cmake
+@@ -529,6 +529,47 @@ if (HDF5_FOUND)
+   endif()
+   if (NOT DEFINED HDF5_TARGET)
+     if(TARGET hdf5::hdf5_hl_fortran AND TARGET hdf5::hdf5_fortran)
++      # Sometimes the hdf5_hl_fortran target gets screwed up
++      get_property(hl_loc TARGET hdf5::hdf5_hl_fortran PROPERTY IMPORTED_LOCATION SET)
++      if (hl_loc)
++        get_property(hl_loc TARGET hdf5::hdf5_hl_fortran PROPERTY IMPORTED_LOCATION)
++        set(prop IMPORTED_LOCATION)
++      endif()
++      if (NOT hl_loc)
++        get_property(hl_loc TARGET hdf5::hdf5_hl_fortran PROPERTY IMPORTED_CONFIGURATIONS SET)
++        if (hl_loc)
++          set(hl_loc OFF)
++          get_property(configs TARGET hdf5::hdf5_hl_fortran PROPERTY IMPORTED_CONFIGURATIONS)
++          foreach(c ${configs})
++            get_property(hl_loc_t TARGET hdf5::hdf5_hl_fortran PROPERTY IMPORTED_LOCATION_${c} SET)
++            if (hl_loc_t)
++              get_property(hl_loc_t TARGET hdf5::hdf5_hl_fortran PROPERTY IMPORTED_LOCATION_${c})
++              set(prop IMPORTED_LOCATION_${c})
++            endif()
++            if (hl_loc_t)
++              set(hl_loc ${hl_loc_t})
++            endif()
++          endforeach()
++        endif()
++      endif()
++      if (NOT hl_loc AND prop)
++        # The hdf5_hl_fortran target gets screwed up
++        foreach(lib ${HDF5_Fortran_HL_LIBRARIES})
++          if(lib)
++            message("lib=${lib}")
++            if (lib MATCHES hl_fortran)
++              message("It matches!")
++            endif()
++          endif()
++          if (NOT hl_loc AND lib AND lib MATCHES hl_fortran)
++            set(hl_loc ${lib})
++            set_target_properties(hdf5::hdf5_hl_fortran PROPERTIES ${prop} ${lib})
++          endif()
++        endforeach()
++      endif()
++      if(NOT hl_loc)
++        message(FATAL_ERROR "Problem with HDF5 hl_fortran Target")
++      endif()
+       set(HDF5_TARGET hdf5::hdf5_hl_fortran hdf5::hdf5_fortran)
+     else()
+       message(FATAL_ERROR "HDF5 Target not found")
+@@ -537,6 +578,52 @@ if (HDF5_FOUND)
+ else()
+   message(FATAL_ERROR "HDF5 Target not found")
+ endif()
++foreach(t hdf5_hl_fortran-shared hdf5_hl_fortran-static hdf5::hdf5_hl_fortran hdf5::hdf5_fortran)
++  message("Target: ${t}")
++  if(TARGET ${t})
++    foreach(p
++        INCLUDE
++        LOCATION
++        IMPORTED_IMPLIB
++        IMPORTED_LIBNAME
++        IMPORTED_LINK_DEPENDENT_LIBRARIES
++        IMPORTED_LINK_INTERFACE_LIBRARIES
++        IMPORTED_LOCATION
++        INTERFACE_COMPILE_DEFINITIONS
++        INTERFACE_INCLUDE_DIRECTORIES
++        INTERFACE_LINK_DEPENDS
++        INTERFACE_LINK_DIRECTORIES
++        INTERFACE_LINK_LIBRARIES
++        INTERFACE_SYSTEM_INCLUDE_DIRECTORIES)
++      get_property(v TARGET ${t} PROPERTY ${p} SET)
++      if (${v})
++        get_property(v TARGET ${t} PROPERTY ${p})
++        message("  ${p}=${v}")
++      endif()
++    endforeach()
++    get_property(v TARGET ${t} PROPERTY IMPORTED_CONFIGURATIONS SET)
++    if (${v})
++      get_property(configs TARGET ${t} PROPERTY IMPORTED_CONFIGURATIONS)
++      foreach(c ${configs})
++        foreach(p
++            IMPORTED_IMPLIB
++            IMPORTED_LIBNAME
++            IMPORTED_LINK_DEPENDENT_LIBRARIES
++            IMPORTED_LINK_INTERFACE_LIBRARIES
++            IMPORTED_LOCATION
++            LINK_INTERFACE_LIBRARIES
++            LOCATION
++          )
++          get_property(v TARGET ${t} PROPERTY ${p}_${c} SET)
++          if (${v})
++            get_property(v TARGET ${t} PROPERTY ${p}_${c})
++            message("  ${p}_${c}=${v}")
++          endif()
++        endforeach()
++      endforeach()
++    endif()
++  endif()
++endforeach()
+ 
+ #------------------------------------------------------
+ # Add local include paths to search list if they exist

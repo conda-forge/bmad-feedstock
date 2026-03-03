@@ -63,6 +63,8 @@ EOF
 
 fi
 
+ls -l "$PREFIX"/lib/*hdf5*
+
 echo "**** Invoking dist_source_me"
 source util/dist_source_me
 
@@ -87,10 +89,13 @@ fi
 # # Hack: copy in plplot fortran modules
 # cp "$PREFIX/lib/fortran/modules/plplot"/*.mod "$PREFIX/include"
 
+patch -p1 -i "${RECIPE_DIR}/hdf5-debug.patch"
+export CMAKE_ARGS="$CMAKE_ARGS -DHDF5_FIND_DEBUG=ON"
+
 # build production if BUILD_PRODUCTION is set to Y
 if [[ "$BUILD_PRODUCTION" == "Y" ]]; then
   echo "**** Invoking dist_build_production"
-  util/dist_build_production
+  VERBOSE=1 util/dist_build_production
 else
   echo "**** Invoking dist_build_debug"
   util/dist_build_debug
