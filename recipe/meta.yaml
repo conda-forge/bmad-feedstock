@@ -12,7 +12,7 @@
 
 package:
   name: {{ name|lower }}
-  version: {{ version | replace("-", ".") }}
+  version: "{{ version | replace("-", ".") }}"
 
 source:
   url: https://github.com/bmad-sim/bmad-ecosystem/releases/download/{{ version }}/bmad_dist.tar.gz
