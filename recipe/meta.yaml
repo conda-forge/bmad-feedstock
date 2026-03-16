@@ -13,7 +13,7 @@
 
 package:
   name: {{ name|lower }}
-  version: {{ safe_version }}
+  version: "{{ safe_version }}"
 
 source:
   url: https://github.com/bmad-sim/bmad-ecosystem/releases/download/{{ version }}/bmad_dist.tar.gz
