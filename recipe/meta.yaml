@@ -2,7 +2,7 @@
 {% set version = "20260415-0" %}
 {% set safe_version = version | replace("-", ".") %}
 
-{% set build = 0 %}
+{% set build = 1 %}
 # ensure mpi is defined (needed for conda-smithy recipe-lint)
 {% set mpi = mpi or 'nompi' %}
 
