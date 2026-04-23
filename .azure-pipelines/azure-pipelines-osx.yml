@@ -12,34 +12,42 @@ jobs:
         CONFIG: osx_64_hdf51.14.6mpinompi
         UPLOAD_PACKAGES: 'True'
         VMIMAGE: macOS-15
+        store_build_artifacts: false
       osx_64_hdf51.14.6mpiopenmpi:
         CONFIG: osx_64_hdf51.14.6mpiopenmpi
         UPLOAD_PACKAGES: 'True'
         VMIMAGE: macOS-15
+        store_build_artifacts: false
       osx_64_hdf52mpinompi:
         CONFIG: osx_64_hdf52mpinompi
         UPLOAD_PACKAGES: 'True'
         VMIMAGE: macOS-15
+        store_build_artifacts: false
       osx_64_hdf52mpiopenmpi:
         CONFIG: osx_64_hdf52mpiopenmpi
         UPLOAD_PACKAGES: 'True'
         VMIMAGE: macOS-15
+        store_build_artifacts: false
       osx_arm64_hdf51.14.6mpinompi:
         CONFIG: osx_arm64_hdf51.14.6mpinompi
         UPLOAD_PACKAGES: 'True'
         VMIMAGE: macOS-15
+        store_build_artifacts: false
       osx_arm64_hdf51.14.6mpiopenmpi:
         CONFIG: osx_arm64_hdf51.14.6mpiopenmpi
         UPLOAD_PACKAGES: 'True'
         VMIMAGE: macOS-15
+        store_build_artifacts: false
       osx_arm64_hdf52mpinompi:
         CONFIG: osx_arm64_hdf52mpinompi
         UPLOAD_PACKAGES: 'True'
         VMIMAGE: macOS-15
+        store_build_artifacts: false
       osx_arm64_hdf52mpiopenmpi:
         CONFIG: osx_arm64_hdf52mpiopenmpi
         UPLOAD_PACKAGES: 'True'
         VMIMAGE: macOS-15
+        store_build_artifacts: false
   timeoutInMinutes: 360
   variables: {}
 
