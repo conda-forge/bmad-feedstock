@@ -1,5 +1,5 @@
 {% set name = "bmad" %}
-{% set version = "20260617-0" %}
+{% set version = "20260624-0" %}
 {% set safe_version = version | replace("-", ".") %}
 
 {% set build = 0 %}
@@ -17,7 +17,7 @@ package:
 
 source:
   url: https://github.com/bmad-sim/bmad-ecosystem/releases/download/{{ version }}/bmad_dist.tar.gz
-  sha256: df45eaecb933f88f287ad9f85b3d7dcd4c66e858aad724ed2df08b7fe09c5bfe
+  sha256: 6e81fa203c04af45bfdfd20c0fd974ce5afc4f11a014f112b1ca4b0fd844d5b0
 
 build:
   number: {{ build }}
