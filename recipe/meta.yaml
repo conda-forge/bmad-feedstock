@@ -2,7 +2,7 @@
 {% set version = "20260713-0" %}
 {% set safe_version = version | replace("-", ".") %}
 
-{% set build = 0 %}
+{% set build = 1 %}
 # ensure mpi is defined (needed for conda-smithy recipe-lint)
 {% set mpi = mpi or 'nompi' %}
 
@@ -87,7 +87,7 @@ requirements:
     - lapack95
     - gsl
     - fgsl
-    - xraylib
+    - libxraylib
     - {{ mpi }}  # [mpi != 'nompi']
   run:
     - libblas * *openblas
