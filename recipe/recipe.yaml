@@ -1,0 +1,125 @@
+schema_version: 1
+
+context:
+  name: bmad
+  version: "20260802-0"
+  safe_version: ${{ version | replace("-", ".") }}
+  build: 1
+  # mpi variants get a build string so packages can depend on them explicitly:
+  # `pkg * mpi_mpich_*` for mpich, `pkg * mpi_*` for any mpi, `pkg * nompi_*` for no mpi
+  mpi_prefix: ${{ "nompi" if mpi == "nompi" else "mpi_" ~ mpi }}
+
+package:
+  name: ${{ name }}
+  version: ${{ safe_version }}
+
+source:
+  url: https://github.com/bmad-sim/bmad-ecosystem/releases/download/${{ version }}/bmad_dist.tar.gz
+  sha256: bfb209866fd36b4eee4395975c86891ba39739ae93484e91da8ce7147bab135a
+
+build:
+  # prioritize the nompi variant via build number
+  number: ${{ build + 100 if mpi == "nompi" else build }}
+  string: ${{ mpi_prefix }}_h${{ hash }}_${{ build + 100 if mpi == "nompi" else build }}
+  skip:
+    - win
+  variant:
+    # python is only a build helper (fix_rpath_macos.py) and a test runner;
+    # nothing links against it, so don't build a copy per python version
+    ignore_keys:
+      - python
+
+requirements:
+  build:
+    - ${{ compiler('c') }}
+    - ${{ stdlib('c') }}
+    - ${{ compiler('cxx') }}
+    - ${{ compiler('fortran') }}
+    - cmake
+    - make
+    - automake
+    - autoconf
+    - if: unix
+      then: gnuconfig
+    - libtool
+    - m4
+    - pkg-config
+    - if: osx
+      then: llvm-openmp
+    - if: linux
+      then: libgomp
+    - if: mpi == "openmpi" and build_platform != target_platform
+      then: openmpi
+    - python
+  host:
+    - readline
+    - ncurses
+    - cairo
+    - pango
+    - xorg-libxt
+    - pgplot
+    # `.*` is required by rattler-build's stricter match specs; conda-build
+    # treated the bare `hdf5 {{ hdf5 }}` pin as fuzzy (e.g. hdf5 2 -> 2.*)
+    - hdf5 ${{ hdf5 }}.* ${{ mpi_prefix }}*
+    - xorg-libx11
+    - xorg-xproto
+    - fftw
+    - openblas
+    - if: linux
+      then: libacl
+    - libcblas
+    - liblapack
+    - lapack95
+    - gsl
+    - fgsl
+    - libxraylib
+    - if: mpi != "nompi"
+      then: ${{ mpi }}
+  run:
+    - libblas * *openblas
+    - openblas
+    - pgplot
+    - lapack95
+    - fgsl
+    - xorg-xproto
+    - if: mpi != "nompi"
+      then: ${{ mpi }}
+  run_exports:
+    - if: mpi != "nompi"
+      then: ${{ name }} * ${{ mpi_prefix }}_*
+
+tests:
+  - if: build_platform == target_platform
+    then:
+      - script:
+          - tao -help
+          - python -c 'import ctypes.util; assert ctypes.util.find_library("tao") is not None'
+          - python -c 'import ctypes, ctypes.util; ctypes.CDLL(ctypes.util.find_library("tao"))'
+        requirements:
+          run:
+            - python
+
+about:
+  homepage: https://www.classe.cornell.edu/bmad
+  license: GPL-3.0-or-later
+  license_file: bmad/Copyright
+  summary: Bmad is an object oriented, open source, subroutine library for relativistic charged-particle dynamics simulations in accelerators and storage rings.
+  description: |
+    Bmad has been developed at Cornell University's Laboratory for Elementary
+    Particle Physics and has been in use since the mid 1990s.
+    Bmad has a wide range of routines to do many things.
+    Bmad can be used to study both single and multi-particle
+    beam dynamics. It has routines to track both particles and
+    macroparticles. Bmad has various tracking algorithms including
+    Runge-Kutta and symplectic (Lie algebraic) integration.
+    Wakefields, and radiation excitation and damping can be simulated.
+    Bmad has routines for calculating transfer matrices, emittances,
+    Twiss parameters, dispersion, coupling, etc.
+  documentation: https://www.classe.cornell.edu/bmad/manual.html
+
+extra:
+  recipe-maintainers:
+    - MichaelEhrlichman
+    - hhslepicka
+    - ChristopherMayes
+    - ken-lauer
