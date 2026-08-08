@@ -22,7 +22,7 @@ ARTIFACT_FOLDER="production"
 if [[ "$mpi" != "nompi" ]]; then
   echo "**** Setting up util/dist_prefs with MPI"
 
-  cat <<EOF >> util/dist_prefs
+  cat <<EOF >>util/dist_prefs
 export DIST_F90_REQUEST="gfortran"
 export ACC_PLOT_PACKAGE="pgplot"
 export ACC_PLOT_DISPLAY_TYPE="X"
@@ -43,7 +43,7 @@ EOF
 else
   echo "**** Setting up util/dist_prefs"
 
-  cat <<EOF >> util/dist_prefs
+  cat <<EOF >>util/dist_prefs
 export DIST_F90_REQUEST="gfortran"
 export ACC_PLOT_PACKAGE="pgplot"
 export ACC_PLOT_DISPLAY_TYPE="X"
@@ -117,8 +117,8 @@ mkdir -p $PREFIX/share/doc/tao
 
 # Fix rpath for MacOS (except cross-compile)
 if [[ "$target_platform" == osx-* ]]; then
-  echo "Fixing MacOS rpath with Python: ${CONDA_PYTHON_EXE}"
-  ${CONDA_PYTHON_EXE} ${RECIPE_DIR}/fix_rpath_macos.py
+  echo "Fixing MacOS rpath with Python: ${BUILD_PREFIX}/bin/python"
+  "${BUILD_PREFIX}/bin/python" "${RECIPE_DIR}/fix_rpath_macos.py"
 fi
 
 # ## Remove all test binaries
@@ -149,11 +149,10 @@ ACTIVATE=$PREFIX/etc/conda/activate.d/bmad
 DEACTIVATE=$PREFIX/etc/conda/deactivate.d/bmad
 
 # Variable TAO_DIR is used by Tao to find auxiliary documentation files
-echo "export TAO_DIR=\$CONDA_PREFIX/share/doc/tao/" >> $ACTIVATE.sh
-echo "unset TAO_DIR" >> $DEACTIVATE.sh
+echo "export TAO_DIR=\$CONDA_PREFIX/share/doc/tao/" >>$ACTIVATE.sh
+echo "unset TAO_DIR" >>$DEACTIVATE.sh
 
 unset ACTIVATE
 unset DEACTIVATE
 
 echo "**** build.sh DONE"
-

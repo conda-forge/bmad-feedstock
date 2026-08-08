@@ -22,7 +22,6 @@ Wakefields, and radiation excitation and damping can be simulated.
 Bmad has routines for calculating transfer matrices, emittances,
 Twiss parameters, dispersion, coupling, etc.
 
-
 Current build status
 ====================
 
