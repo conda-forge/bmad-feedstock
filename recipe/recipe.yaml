@@ -49,6 +49,7 @@ requirements:
         - llvm-openmp
         # Temporary fix for https://github.com/conda-forge/ctng-compilers-feedstock/issues/225
         - gcc_impl_osx-64 ${{ fortran_compiler_version }}.*
+        - gcc_osx-64 ${{ fortran_compiler_version }}.*
     - if: linux
       then: libgomp
     - if: mpi == "openmpi" and build_platform != target_platform
