@@ -2,7 +2,7 @@ schema_version: 1
 
 context:
   name: bmad
-  version: "20260904-1"
+  version: "20260918-0"
   safe_version: ${{ version | replace("-", ".") }}
   build: 0
   # mpi variants get a build string so packages can depend on them explicitly:
@@ -15,7 +15,7 @@ package:
 
 source:
   url: https://github.com/bmad-sim/bmad-ecosystem/releases/download/${{ version }}/bmad_dist.tar.gz
-  sha256: c7b0af248370d29f46c8148c7cae4524c4010068f525e5d3a94b833ee8bd49c9
+  sha256: a5079461d400f5682d675725e2cb0ef965393d514fe77e6086f816e8c5b6b9b3
 
 build:
   # prioritize the nompi variant via build number
