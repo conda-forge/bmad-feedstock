@@ -4,7 +4,7 @@ context:
   name: bmad
   version: "20261110-0"
   safe_version: ${{ version | replace("-", ".") }}
-  build: 0
+  build: 1
   # mpi variants get a build string so packages can depend on them explicitly:
   # `pkg * mpi_mpich_*` for mpich, `pkg * mpi_*` for any mpi, `pkg * nompi_*` for no mpi
   mpi_prefix: ${{ "nompi" if mpi == "nompi" else "mpi_" ~ mpi }}
@@ -99,6 +99,7 @@ tests:
     then:
       - script:
           - tao -help
+          - test "$TAO_DIR" = "$PREFIX/share/doc/tao/"
           - python -c 'import ctypes.util; assert ctypes.util.find_library("tao") is not None'
           - python -c 'import ctypes, ctypes.util; ctypes.CDLL(ctypes.util.find_library("tao"))'
         requirements:

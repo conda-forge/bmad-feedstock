@@ -140,19 +140,12 @@ cp -r tao/doc $PREFIX/share/doc/tao/.
 rm -rf $ARTIFACT_FOLDER/lib
 rm -rf $ARTIFACT_FOLDER/bin
 
-# Create auxiliary dirs
-mkdir -p $PREFIX/etc/conda/activate.d
-mkdir -p $PREFIX/etc/conda/deactivate.d
-
-# Create auxiliary vars
-ACTIVATE=$PREFIX/etc/conda/activate.d/bmad
-DEACTIVATE=$PREFIX/etc/conda/deactivate.d/bmad
-
 # Variable TAO_DIR is used by Tao to find auxiliary documentation files
-echo "export TAO_DIR=\$CONDA_PREFIX/share/doc/tao/" >>$ACTIVATE.sh
-echo "unset TAO_DIR" >>$DEACTIVATE.sh
-
-unset ACTIVATE
-unset DEACTIVATE
+mkdir -p "${PREFIX}/etc/conda/env_vars.d"
+cat > "${PREFIX}/etc/conda/env_vars.d/${PKG_NAME}.json" << EOF
+{
+  "TAO_DIR": "${PREFIX}/share/doc/tao/"
+}
+EOF
 
 echo "**** build.sh DONE"
