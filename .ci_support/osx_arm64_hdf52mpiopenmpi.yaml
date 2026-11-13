@@ -18,12 +18,16 @@ cxx_compiler:
 - clangxx
 cxx_compiler_version:
 - '21'
+expat:
+- '2'
 fftw:
 - '3'
 fortran_compiler:
 - gfortran
 fortran_compiler_version:
 - '15'
+glib:
+- '2'
 gsl:
 - '2.7'
 hdf5:
@@ -56,3 +60,5 @@ zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
   - fortran_compiler_version
+zlib:
+- '1'
