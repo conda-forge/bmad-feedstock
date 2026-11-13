@@ -16,6 +16,9 @@ package:
 source:
   url: https://github.com/bmad-sim/bmad-ecosystem/releases/download/${{ version }}/bmad_dist.tar.gz
   sha256: 5602f62f29e8074e11e69b977032cc451a321949a1b93deb38bb506c77f6022b
+  patches:
+    # programs linking the static libsim_utils.a need readline (qp_gtk_window.c); proposed upstream
+    - readline-gtk.patch
 
 build:
   # prioritize the nompi variant via build number
@@ -62,13 +65,15 @@ requirements:
     - ncurses
     - cairo
     - pango
-    - xorg-libxt
-    - pgplot
+    - gtk3
+    # dev files (glibconfig.h, unversioned libs); libglib is runtime-only
+    - glib
+    # .pc files required by gio-2.0.pc / fontconfig.pc for `pkg-config gtk+-3.0`
+    - zlib
+    - expat
     # `.*` is required by rattler-build's stricter match specs; conda-build
     # treated the bare `hdf5 {{ hdf5 }}` pin as fuzzy (e.g. hdf5 2 -> 2.*)
     - hdf5 ${{ hdf5 }}.* ${{ mpi_prefix }}*
-    - xorg-libx11
-    - xorg-xproto
     - fftw
     - openblas
     - if: linux
@@ -84,15 +89,18 @@ requirements:
   run:
     - libblas * *openblas
     - openblas
-    - pgplot
     - lapack95
     - fgsl
-    - xorg-xproto
     - if: mpi != "nompi"
       then: ${{ mpi }}
   run_exports:
     - if: mpi != "nompi"
       then: ${{ name }} * ${{ mpi_prefix }}_*
+  ignore_run_exports:
+    from_package:
+      # build-time only: their .pc files let pkg-config resolve gtk+-3.0
+      - zlib
+      - expat
 
 tests:
   - if: build_platform == target_platform
