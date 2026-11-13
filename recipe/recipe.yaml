@@ -2,7 +2,7 @@ schema_version: 1
 
 context:
   name: bmad
-  version: "20261113-0"
+  version: "20261113-1"
   safe_version: ${{ version | replace("-", ".") }}
   build: 0
   # mpi variants get a build string so packages can depend on them explicitly:
@@ -15,7 +15,7 @@ package:
 
 source:
   url: https://github.com/bmad-sim/bmad-ecosystem/releases/download/${{ version }}/bmad_dist.tar.gz
-  sha256: 5602f62f29e8074e11e69b977032cc451a321949a1b93deb38bb506c77f6022b
+  sha256: a6dc154c0c8d6addc200bd7d7f5689fbf46a9b7c60d67576cab05d0b446b4a95
   patches:
     # programs linking the static libsim_utils.a need readline (qp_gtk_window.c); proposed upstream
     - readline-gtk.patch
